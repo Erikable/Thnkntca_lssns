@@ -6,6 +6,6 @@ m = {'January' => 31, 'February' => 28,
 
 m.each do |z,x|
 	if x == 30
-	puts "there are #{x} in #{z}"
+	puts "there are #{x} days in #{z}"
 end
 end
