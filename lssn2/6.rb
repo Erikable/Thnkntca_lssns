@@ -13,3 +13,25 @@
 		Вычислить и вывести на экран итоговую сумму всех покупок в "корзине".
 	
 =end
+
+bag = {}
+score = 0 
+
+loop do
+	puts 'введите название товара или stop для выхода'
+	name = gets.chomp.downcase
+		if name == "stop"
+			puts "в корзине сейчас: #{bag}\n общая сумма: #{score}"
+			break
+		end
+	puts 'введите цену за ед товара'
+	money = gets.to_f
+	puts 'введите кол-во'
+	times = gets.to_i
+
+	bag[name] = {money => times}
+    score = score + money * times
+
+  puts "цена за текущий товар:  #{money}\n в корзине сейчас: #{bag}\n общая сумма: #{score}"
+
+end
