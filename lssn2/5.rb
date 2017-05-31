@@ -24,18 +24,19 @@
 puts "введи день рождения"
 day = gets.to_i
 puts "введи месяц рождения"
-mounth = gets.to_i - 1   
+month = gets.to_i   
 puts "введи год рождения"
 year = gets.to_i
-mounthdays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-a = 0
+monthdays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
-if year % 4 && year % 100 || year % 400
-	month[1] = 29
+if year % 4 == 0 && year % 100 !=0 || year % 400 == 0
+	puts "visokosno"
+	monthdays[1] = 29
 end
-mounth_days = month_days[mounth]
-# тут проблема 
-# выше определил что mounth_days = цифре(месяцу) что введет чел 
-# но не доходит как осуществить сложение последовательности месяцев до нужного 
-# 
-puts a
+
+sum_days = 0
+
+summ_of_all_m = monthdays[0..month - 1].sum 
+sum_days = summ_of_all_m - (monthdays[month - 1] - day)
+
+puts "порядковый номер даты с начала года = #{sum_days} дней"

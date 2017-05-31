@@ -24,14 +24,24 @@ loop do
 			puts "в корзине сейчас: #{bag}\n общая сумма: #{score}"
 			break
 		end
+		if bag.include?(name)
+			puts "tovar v korzine!!!   изменим цену и кол-во?  y/n ?"
+			change = gets.chomp.downcase
+			case change
+			when "y"
+				puts "меняем цену и кол-во"
+			when "n"
+				next	
+			end
+		end
 	puts 'введите цену за ед товара'
 	money = gets.to_f
 	puts 'введите кол-во'
 	times = gets.to_i
-
+	puts "цена за  #{name} составляет #{money * times} рублей"
 	bag[name] = {money => times}
     score = score + money * times
 
-  puts "цена за текущий товар:  #{money}\n в корзине сейчас: #{bag}\n общая сумма: #{score}"
+  puts "в корзине сейчас: #{bag}\n общая сумма всех покупок: #{score}"
 
 end
