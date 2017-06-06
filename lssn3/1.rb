@@ -26,8 +26,8 @@ class Station
 		@trains.find_all {|train| train.type_of_train}
 	end
 	
-	def sent_train
-		@trains.delete
+	def send_train
+		@trains.delete......
 	end
 end
 
@@ -40,20 +40,24 @@ end
 -Может выводить список всех станций по-порядку от начальной до конечной
 =end
 class Route
-	def method_name
-		
+	attr_reader :route 
+	def initialize(start_stantion, end_stantion)
+		@route = [start_stantion, end_stantion]
 	end
 
-	def add_way_station_to_list
-		
+	def add_way_station_to_list(station)
+		@route.insert(-2, station)
+		# можно инсертом добавить станцию Но имеет ли значение в какое место? до полюбому имеет
+		#просто если добавить 2 станции то как понять какая первая в маршруте?
+		#в итоге между основными станциями пихнул. просто как вытащить потом эту середину..
 	end
 
-	def del_way_station_from_list
-		
+	def del_way_station_from_list(station)
+		@route.delete(station)
 	end
 
 	def display_list_of_all_stations
-		
+		@route.each {|station| puts station}
 	end
 end
 
@@ -61,8 +65,8 @@ end
 Класс Train (Поезд):
 -Имеет номер (произвольная строка) и тип (грузовой, пассажирский) и количество вагонов, 
 	эти данные указываются при создании экземпляра класса
--Может набирать скорость
--Может возвращать текущую скорость
+			-Может набирать скорость
+			-Может возвращать текущую скорость
 -Может тормозить (сбрасывать скорость до нуля)
 -Может возвращать количество вагонов
 -Может прицеплять/отцеплять вагоны (по одному вагону за операцию, 
@@ -82,8 +86,8 @@ class Train
 		@speed += 10
 	end
 
-	def return_speed
-		@speed -= 10
+	def current_speed
+		@speed 
 	end
 
 	def stop_speed_to_zero
