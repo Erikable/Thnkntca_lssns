@@ -7,7 +7,7 @@
 			-Может отправлять поезда (по одному за раз, при этом, поезд удаляется из списка поездов, находящихся на станции).
 =end
 class Station
-	attr_reader :station_name
+	attr_reader :station_name, :stations, :trains 
 
 	def initialize(station_name)
 		@station_name = station_name
@@ -15,7 +15,7 @@ class Station
 	end
 	
 	def take_a_train(train)
-		@trains < train
+		@trains << train # или так - @trains.push = train
 	end
 
 	def show_all_trains
@@ -23,7 +23,7 @@ class Station
 	end
 	
 	def show_trains_by_type
-		@trains.find_all {|train| train.type_of_train}
+		@trains.find_all {|train| puts train.type_of_train}
 	end
 	
 	def send_train(train)
@@ -40,16 +40,13 @@ end
 			-Может выводить список всех станций по-порядку от начальной до конечной
 =end
 class Route
-	attr_reader :route 
+	attr_accessor :route 
 	def initialize(start_stantion, end_stantion)
 		@route = [start_stantion, end_stantion]
 	end
 
 	def add_way_station_to_list(station)
 		@route.insert(-2, station)
-		# можно инсертом добавить станцию Но имеет ли значение в какое место? до полюбому имеет
-		#просто если добавить 2 станции то как понять какая первая в маршруте?
-		#в итоге между основными станциями пихнул. просто как вытащить потом эту середину..
 	end
 
 	def del_way_station_from_list(station)
@@ -57,7 +54,7 @@ class Route
 	end
 
 	def display_list_of_all_stations
-		@route.each {|station| puts station}
+		@route.each {|station| puts station.station_name}
 	end
 end
 
@@ -80,10 +77,11 @@ end
 =end
 class Train
 
-	attr_accessor :wagons, :speed
-
+	attr_accessor :wagons, :speed, :train_number, :type_of_train, 
 
 	def initialize(train_number, type_of_train, wagons)
+		@train_number = train_number
+		@type_of_train = type_of_train
 		@wagons = 0
 		@speed = 0
 	end
@@ -107,34 +105,36 @@ class Train
 		if @speed == 0
 			@wagons += 1
 		else
-			puts "поезд в пути- не пирстягнуть вагон!"
+			puts "поезд в пути- не пирстегнуть вагон!"
 		end
 	end
 	def del_wagon
 		if @speed == 0 && @wagons >= 1
 			@wagons -= 1
 		else
-			puts "поезд  в пути - не отцепить ! или нет вагоно (ДОДЕЛАТЬ)"
+			puts "поезд  в пути - не отцепить ! или нет вагона.."
 		end	
 	end
 
-	def marshrut
+	def marshrut(route)
 		
+		#Может принимать маршрут следования (объект класса Route)
+		# что это значит ? 
 	end
 
 	def current_station
-		
+#При назначении маршрута поезду, поезд автоматически помещается на первую станцию в маршруте.
 	end
 
 	def move_to_station
-		
+		#Может перемещаться между станциями, указанными в маршруте.
 	end
 
 	def move_to_previous_station
-		
+		#еремещение возможно вперед и назад, но только на 1 станцию за раз.
 	end
 	def show_lcn_stations #LAST CURRTEN NEXT
-		
+		#Возвращать предыдущую станцию, текущую, следующую, на основе маршрута
 	end
 
 
