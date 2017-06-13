@@ -1,10 +1,6 @@
-require_relative "2"
+require_relative "1"
 
-#aaa = Station.new(Leningradsky_vokzal)
 
-#aaa.add_train
-		#show_all_trains_on_station
-		#show_all_trains_by_type
 
 ttt = Train.new(666, "pass", 6)
 
