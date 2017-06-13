@@ -119,17 +119,23 @@ class Train
 	end
 
 	def go_ahead #Может перемещаться между станциями, указанными в маршруте. вперед  но только на 1 станцию за раз
-		if @current_station != @current_route.last # == @end_station
-			@current_station.route.add_way_station
-			
-
+		if @current_station == @current_route.last # @end_station 
+			puts "Sorry Last station"
+		elsif
+			@step = @current_route.index(current_station)   # не понят частенько можно ли ставить Эт(@) у current_stantion - вроде как из одного метода...
+			@current_station = current_route[step + 1]		
 		end
 	end
 	def go_back #Может перемещаться между станциями, указанными в маршруте. назад, но только на 1 станцию за раз
-	
+		if @current_station == @current_route.first
+			puts "Sorry ! It's start station"
+			else
+				@step = @current_route.index(current_station)  #   -  можно же не писать это ведь Степ уже определен выше??
+				@current_station = current_route[step - 1]
 	end
 
 	def show_stantions  # Возвращать предыдущую станцию, текущую, следующую, на основе маршрута	
+		puts " last st = #{},\n #{current_station} is now,\n next will be = #{}" # нужно наверно было определить 2 метода для прошлой и буд станций
 	end
 
 end
