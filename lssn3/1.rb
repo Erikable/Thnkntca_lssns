@@ -1,94 +1,75 @@
-=begin
-				Класс Station (Станция):
-				Имеет название, которое указывается при ее создании
-				Может принимать поезда (по одному за раз)
-				Может возвращать список всех поездов на станции, находящиеся в текущий момент
-				Может возвращать список поездов на станции по типу (см. ниже): кол-во грузовых, пассажирских
-				Может отправлять поезда (по одному за раз, при этом, поезд удаляется из списка поездов, находящихся на станции).
-=end
-																						class Station
+
+class Station
 																							
-																							attr_reader :station_name, :train_type
-																							#attr_writer 
+	attr_reader :name 
 
-																							def initialize(station_name)
-																								@station_name = station_name
-																								@trains = []
-																							end
-																							def add_train(train)
-																								@trains.push(train)
-																							end
-																							def show_all_trains_on_station
-																								@trains.each {|t| puts t}
-																							end
-																							def show_all_trains_by_type(train)
-																								@trains.each {|t| pust t.train_type} #__.find_all.....
-																							end
-																							def send_train(train)
-																								@trains.pop(train)
-																							end
-
-																						end
+	def initialize(name)
+		@name = name
+		@trains = []
+	end
+	def add_train(train)
+		@trains.push(train)
+	end
+	def send_train(train)
+		@trains.delete(train)
+	end
 
 
-=begin
-																										Класс Route 
-				Имеет начальную и конечную станцию, а также список промежуточных станций. 
-				Начальная и конечная станции указываютсся при создании маршрута, а промежуточные могут добавляться между ними.
-				Может добавлять промежуточную станцию в список
-				Может удалять промежуточную станцию из списка
-				Может выводить список всех станций по-порядку от начальной до конечной
-=end
-																						class Route
+	def show_trains(type = nil)
+  	if type
+    	show_trains_by_type(type)
+  	else
+    	show_all_trains
+  	end
+	end
+	
+	def show_trains_by_type(train)
+		@trains.each {|t| pust t.type}
+	end
 
-																							attr_reader :route
+	def show_all_trains(train)
+		@trains.each {|t| puts t}
+	end
 
-																							def initialize(start_station, end_station)
-																								@route = [start_station, end_station]
-																							end
-																							def add_way_station(station)
-																								@route.insert(-2, station)
-																							end
-																							def del_way_station(station)
-																								@route.delete_at(-2)
-																							end
-																							def show_all_stations
-																								@route.each {|stat| puts stat}
-																							end
-																						end
+end
 
-=begin
-				Класс Train (Поезд):
-				Имеет номер (произвольная строка) и тип (грузовой, пассажирский) и количество вагонов, 
-																				эти данные указываются при создании экземпляра класса
-				Может набирать скорость
-				Может возвращать текущую скорость
-				Может тормозить (сбрасывать скорость до нуля)
-				Может возвращать количество вагонов
-				Может прицеплять/отцеплять вагоны (по одному вагону за операцию, метод просто увеличивает 
-								или уменьшает количество вагонов). Прицепка/отцепка вагонов может осуществляться только если поезд не движется.
-				Может принимать маршрут следования (объект класса Route). 
-			При назначении маршрута поезду, поезд автоматически помещается на первую станцию в маршруте.
-	Может перемещаться между станциями, указанными в маршруте. Перемещение возможно вперед и назад, но только на 1 станцию за раз.
-	Возвращать предыдущую станцию, текущую, следующую, на основе маршрута
-=end
+
+class Route
+
+	#attr_reader :stations#:stations<-route
+	def stations
+		@stations
+	end
+
+	def initialize(start_station, end_station)
+		@stations = [start_station, end_station]
+	end
+	def add_way_station(station)
+		@stations.insert(-2, station)
+	end
+	def del_way_station(station)
+		@stations.delete_at(-2)
+	end
+	def show_all_stations
+		@stations.each {|station| puts station}
+	end
+end
+
+
 class Train
 
-	attr_reader :speed, :train_number, :train_type, :wagons_quantity, :current_route, :current_station, :pass
-	attr_writer :pass
-	def initialize(train_number, train_type, wagons_quantity)
-		@train_number = train_number
-		@train_type = train_type
-		@wagons_quantity = wagons_quantity
-		@wagons_quantity = 0
+	attr_reader :speed, :number, :type, :wagons_quantity, :step
+
+	def initialize(number, type)
+		@number = number
+		@type = type
 		@speed = 0
+		@step = 0
+		@wagons_quantity = 0
 	end
 
 	def speed_up
 		@speed += 10
-	end
-	def show_speed
-		@speed
 	end
 
 	def speed_stop
@@ -96,7 +77,7 @@ class Train
 	end
 
 	def show_quantity_of_wagons
-		@wagons_quantity
+		puts "#{@wagons_quantity} - вагонов"
 	end
 
 	def add_wagon
@@ -107,13 +88,72 @@ class Train
 		end	
 	end
 	def del_wagon
-		if @wagons_quantity >= 1 && @speed == 0 
+		if @wagons_quantity.zero?
+			pust "вагонов на отцепку нет"
+		elsif @speed.zero?
 			@wagons_quantity -= 1 
+			puts "вагон отцеплен"
+		else
+			"остановись и отстегни)"
 		end
 	end
 
-	def current_route(route) # Может принимать маршрут следования (объект класса Route)
-		@current_route = route
+	def set_route(route)
+		@current_route = stations # это маршрут следования (станции массива)
+	end
+
+
+	def next_station
+		if @current_station == @current_route.last # можно с @end_station это написать было ? 
+			puts "Sorry Last station"
+		elsif
+			@step = @current_route.index(current_station)   
+			@current_station = current_route[step + 1]		
+		end 
+	end
+	def last_station
+		# ст маршрута - 1 
+	end
+
+	def show_stations # Вывод на дисплей Прошлой Наст и Буд станции
+		#puts " last st = #{},\n #{current_station} is now,\n next will be = #{}"
+	end
+
+	def current_station  
+		#@current_station = @current_route.first
+		# не погу определить
+		# по идеи это станция из текущего маршрута(@current_route) с отображением индекса массива 
+	end
+
+end
+
+
+
+
+
+
+=begin
+class Train
+
+	attr_reader :speed, :number, :type, :wagons_quantity, :current_route, :current_station#, :pass 
+	#:train_number to number / :train_type to type
+	#attr_writer :pass
+	def initialize(number, type)#, wagons_quantity)
+		@number = number
+		@type = type
+		#@wagons_quantity = wagons_quantity
+		#@wagons_quantity = 0
+		@speed = 0
+	end
+
+	def show_quantity_of_wagons
+		@wagons_quantity
+	end
+
+
+
+	def set_route(route) # Может принимать маршрут следования (объект класса Route)
+		@current_route = stations
 		#При назначении маршрута поезду, поезд автоматически помещается на первую станцию в маршруте.
 		@current_station = @current_route.first
 	end
@@ -122,7 +162,7 @@ class Train
 		if @current_station == @current_route.last # @end_station 
 			puts "Sorry Last station"
 		elsif
-			@step = @current_route.index(current_station)   # не понят частенько можно ли ставить Эт(@) у current_stantion - вроде как из одного метода...
+			@step = @current_route.index(current_station)   
 			@current_station = current_route[step + 1]		
 		end
 	end
@@ -135,13 +175,18 @@ class Train
 	end
 
 	def show_stantions  # Возвращать предыдущую станцию, текущую, следующую, на основе маршрута	
-		puts " last st = #{},\n #{current_station} is now,\n next will be = #{}" # нужно наверно было определить 2 метода для прошлой и буд станций
+		puts " last st = #{},\n #{current_station} is now,\n next will be = #{}" 
+	end
+
+	def last_station
+		@last_station = @route.stations[]	
+	end
+	def next_station
+
 	end
 
 end
-
-
-
+=end
 
 
 

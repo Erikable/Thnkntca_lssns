@@ -1,21 +1,21 @@
+
+
+
+=begin
 require_relative "1"
 
+moscow = Station.new 'moscow'
+minsk = Station.new 'minsk'
+vilnius = Station.new 'vilnius'
+visaginas = Station.new 'visaginas'
+piter = Station.new 'piter'
 
+train666 = Train.new(666, "pass")
 
-ttt = Train.new(666, "pass", 6)
+route111 = Route.new(%w(moscow minsk vilnius visaginas))
+route222 = Route.new(%w(visaginas piter))
 
-puts ttt.speed
-ttt.speed_up
-puts ttt.speed
-ttt.speed_stop
-puts ttt.speed
-ttt.speed_up
-ttt.speed_up
-ttt.speed_up
-puts ttt.speed
-ttt.speed_stop
-puts ttt.speed
-puts ttt.show_quantity_of_wagons
-ttt.speed_up
-ttt.add_wagon
-puts ttt.show_quantity_of_wagons
+train666.set_route train#route
+
+moscow.send_a_train train666
+=end
