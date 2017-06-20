@@ -1,5 +1,13 @@
-
-
+a = ['a', 'b', 'c', 'd']
+p a
+a.each_with_index do |d, index|
+	puts " d = #{d},   index = #{index}"
+end
+a << 'e'
+p a
+a.each_with_index do |d, index|
+	puts " #{index + 1} - #{d}"
+	end
 
 =begin
 require_relative "1"
