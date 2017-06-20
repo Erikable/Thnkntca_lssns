@@ -1,4 +1,3 @@
-
 class Station
 																							
 	attr_reader :name 
@@ -7,6 +6,7 @@ class Station
 		@name = name
 		@trains = []
 	end
+
 	def add_train(train)
 		@trains.push(train)
 	end
@@ -36,26 +36,112 @@ end
 
 class Route
 
-	#attr_reader :stations#:stations<-route
-	def stations
-		@stations
-	end
+	attr_reader :stations  #:stations<-route
+	
 
 	def initialize(start_station, end_station)
 		@stations = [start_station, end_station]
+		@route = []
 	end
+
 	def add_way_station(station)
 		@stations.insert(-2, station)
 	end
-	def del_way_station(station)
-		@stations.delete_at(-2)
+
+	def del_way_station(station)  #удал не по конкретоной позиц а именно тот обект что был передан в аргументе delete используй
+		@stations.delete(station)
 	end
+	
+	def display_route #(начало и конец маршрута)
+		puts "from #{@route.first.name}  to  #{@route.last.name}" # имелл ввиду что выводит 1ю и посл станц из массива @route
+	end
+
 	def show_all_stations
-		@stations.each {|station| puts station}
+		@stations.each {|station| puts station.name}
+	end
+
+	def start_station
+		@route.first
+	end
+    
+	def end_station
+		@route.last
 	end
 end
 
+class Train
 
+	attr_reader :speed, :wagons_quantity, :type, :number, :current_station
+
+	def initialize(number, type)
+			@number = number
+			@type = type
+			@speed = 0
+			@wagons_quantity = 0
+
+		def speed_up
+		@speed += 10
+	end
+
+	def speed_stop
+		@speed = 0
+	end
+
+	def show_quantity_of_wagons
+		puts "#{@wagons_quantity} - вагонов"
+	end
+
+	def train_type(type = nil)
+		if type  # == pass || gruz
+			#вывод по типу
+		else
+			#показ всех поездов
+			puts 
+	end
+
+	def add_wagon
+		if @speed == 0
+			@wagons_quantity += 1
+		else 
+			puts "TRAIN IS GOING"
+		end	
+	end
+	def del_wagon
+		if @wagons_quantity.zero?
+			pust "вагонов на отцепку нет"
+		elsif @speed.zero?
+			@wagons_quantity -= 1 
+			puts "вагон отцеплен"
+		else
+			"остановись и отстегни)"
+		end
+
+		def set_route(route)
+			@current_route = stations
+		end
+	end
+	
+	
+	# вывод поездов по типу
+	# принимать маршрут следования (обект класса Роуте)
+	# помещение поезда на первую станцию в маршруте При назначении маршрута поезду
+	# вывод станций (прош  наст  буд)
+	# прош ст
+	def next_st
+		
+	end
+	# наст ст
+	# буд ст
+
+end
+
+
+
+
+
+
+
+=begin
 class Train
 
 	attr_reader :speed, :number, :type, :wagons_quantity, :step
@@ -126,7 +212,7 @@ class Train
 	end
 
 end
-
+=end
 
 
 
