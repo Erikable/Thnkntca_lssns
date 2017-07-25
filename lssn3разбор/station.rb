@@ -27,7 +27,6 @@ class Station
   end
 
 
-
 end
 
 =begin

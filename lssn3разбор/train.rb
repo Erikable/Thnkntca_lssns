@@ -69,8 +69,7 @@ class Train
   end
 
   def next_station
-    @marshrut.stations[@index.next] || nil.class
-    #@next_station = @marshrut.stations[@index.next] #succ аналог next
+    @next_station = @marshrut.stations[@index.next] #succ аналог next
   end
 
   def go_to_next_station
@@ -109,13 +108,7 @@ class Train
   def show_stations
     puts "now is #{current_station.name} station"
     puts "last station is #{last_station.name}" if @index > 0
-    if next_station == nil.class || @index == -1
-      puts "дальше нет станций"
-    else
-      puts "next station is #{next_station.name}"
-    end
-
-    #puts "next station is #{next_station.name}" if @index != -1 || nil.class
+    puts "next station is #{next_station.name}" if @index != -1 || 0
   end
   
 end
