@@ -62,7 +62,7 @@ class Train
 
 
   def go_to_next_station
-    if @index == @marshrut.stations[-1]
+    if @index == @marshrut.stations[-1] 
       puts "поезд на последней станции!!!"
     else
       @current_station.send_train(self) 

@@ -103,11 +103,11 @@ class Pult
 		if type == 1
 			wagon = PassangerWagon.new
 			train.add_wagon(wagon)
-	      	puts "вагон прицеплен"
+	      	#puts "вагон прицеплен"
 		elsif type == 2
       		wagon = CargoWagon.new
       		train.add_wagon(wagon)
-      		puts "вагон прицеплен"
+      		#puts "вагон прицеплен"
       	else puts "error"
       	end
       	#train.add_wagon(wagon)  или одну строку сюда
@@ -169,14 +169,18 @@ class Pult
 					list_of_trains
 				when 6 
 					appoint_route
-				#when 7
-							
-				#when 8
-				#when 
-				#when 
-				#when 
-				#when 
-							
+				when 7 
+					add_wagon_to_train		
+				when 8
+					del_wagon_from_train
+				when 9
+					# присвоение маршрута
+				when 10
+					move_train_forvard
+				when 11 
+					move_train_back
+				when 11
+					put_train_on_route	
 				else
 					puts "что то не так ввел"
 						
@@ -197,7 +201,7 @@ class Pult
 
 	def choose_wagon(train)
 		puts "выберите вагон"
-		trains.wagons.each_with_index {|wag, index| puts "Вагон (#{wag})  номер #{index + 1}"}
+		train.wagons.each_with_index {|wag, index| puts "Вагон (#{wag})  номер #{index + 1}"}
 		index_of_wagon = gets.to_i
 		train.wagons[index_of_wagon - 1]
 	end
