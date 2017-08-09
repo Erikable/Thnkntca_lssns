@@ -17,7 +17,7 @@ class Station
 
 
   def all_trains
-    @trains.each {|train| puts train.number}
+    @trains.each {|train| puts "#Поезд - {train.number}, тип - #{train.type}  находится он на станции: #{self.name}" }
   end
 
   def show_trains_type(type)

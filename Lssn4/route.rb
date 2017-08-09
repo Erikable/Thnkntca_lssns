@@ -17,8 +17,8 @@ class Route
   def show_all_stations
     @stations.each_with_index {|station, index| puts " #{index + 1} - #{station.name}"}
   end
-  
   # тут паблик все тк всеми методами пользуемся (из экземпляра класса (rout-1 = Route.new) 
+  
   private
   #attr_writer :stations 
 
