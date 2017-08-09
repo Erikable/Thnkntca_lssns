@@ -18,7 +18,7 @@ class Pult
 		@routes = []
 	end
 
-	#Создавать станции
+	#1    Создавать станции
 	def create_stantion
 		puts "ВВедите название станции:"
 		title = gets.chomp.capitalize
@@ -26,7 +26,7 @@ class Pult
 		@stations.push(station_title)
 	end
 
-#Создавать поезда
+#2   Создавать поезда
 	def create_train
 		puts "введи номер поезда:"
 		number = gets.to_i
@@ -52,8 +52,9 @@ class Pult
 #Создавать маршруты и управлять станциями в нем (добавлять, удалять)
 		# 1- назначить маршрут    |2- создать маршрут|     |3- доб станц|   |4- удал станц|
 
-# создать маршрут
+#3 создать маршрут 
 	def create_route
+		list_of_stantions
 		puts "Создание маршрута!\nВедите станцию отправления:"
 		start_stantion = gets.chomp.capitalize
 		puts "Введите станцию назначения"
@@ -76,11 +77,11 @@ class Pult
  		station = gets.chomp.capitalize
  		route.del_way_station(station)
  	end
-	# назначение маршрута
+	#6 5 назначение маршрута
  	def  appoint_route
- 		puts "Выберите поезд"
+ 		#puts "Выберите поезд"
  		choose_train
- 		puts "Выберите маршрут"
+ 		#puts "Выберите маршрут"
  		choose_route
  	end
 
@@ -138,7 +139,7 @@ class Pult
 		@stations.each_with_index {|station, i| puts "#{i + 1} - #{station.name}"}
 	end
 	def list_of_trains
-		puts "выберите номер нужной станции:"
+		puts "выберите номер нужной станции на которой проверим наличие поезда:"
 		@stations.each_with_index {|st, i| puts "#{i + 1} - #{st.name}"}
 		station = gets.to_i
 		current_station = @stations[station - 1]
@@ -149,11 +150,8 @@ class Pult
 # game controller
 	def start_game
 		puts "список команд с номерами"
-		puts "1-создать станцию\n
-		2-создать поезд\n
-		3-создатьмаршрут(1 и последняя станции)\n
-		4-вывод списка станций\n
-		5-назначить маршрут\n"
+		puts "1-создать станцию\n2-создать поезд\n3-создатьмаршрут(1 и последняя станции)
+		\n4-вывод списка станций\n5-назначить маршрут\n"
 
 		loop do
 			puts "введите номер комадны"
@@ -170,14 +168,14 @@ class Pult
 				when 5
 					list_of_trains
 				when 6 
-					
-				when 7
+					appoint_route
+				#when 7
 							
-				when 8
-				when 
-				when 
-				when 
-				when 
+				#when 8
+				#when 
+				#when 
+				#when 
+				#when 
 							
 				else
 					puts "что то не так ввел"
@@ -192,8 +190,8 @@ class Pult
 	# конкретный поезд
 	def choose_train
 		puts "выберите порядковый номер нужного поезда"
-		trains.each_with_index {|train, index| puts " #{index + 1} - #{train}"}
-		index_of_tarain = gets.to_i
+		trains.each_with_index {|train, index| puts " #{index + 1} - #{train.number}"}
+		index_of_train = gets.to_i
 		trains[index_of_train - 1] 
 	end
 
@@ -206,9 +204,14 @@ class Pult
 
 	def choose_route
 		puts "выберите маршрут из списка"
-		@routes.each_with_index {|route, index| puts "#{index + 1} - #{route}"}
+		if @routes.empty?
+			puts "сначало зарегистрируйте маршруты"
+		else
+		@routes.each_with_index {|route, index| puts "#{index + 1} - #{route.inspect}"} # что то не дошло как сделать вывод красивей
 		index_of_route = gets.to_i
 		routes[index_of_route - 1]
+		end
+
 	end
 
 
