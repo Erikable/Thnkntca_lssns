@@ -18,7 +18,7 @@ class Pult
 		@routes = []
 	end
 
-	#1    Создавать станции
+														#1    Создавать станции
 	def create_stantion
 		puts "ВВедите название станции:"
 		title = gets.chomp.capitalize
@@ -26,7 +26,7 @@ class Pult
 		@stations.push(station_title)
 	end
 
-#2   Создавать поезда
+														#2   Создавать поезда
 	def create_train
 		puts "введи номер поезда:"
 		number = gets.to_i
@@ -47,12 +47,7 @@ class Pult
 	end
 
 
-
-
-#Создавать маршруты и управлять станциями в нем (добавлять, удалять)
-		# 1- назначить маршрут    |2- создать маршрут|     |3- доб станц|   |4- удал станц|
-
-#3 создать маршрут 
+															#3 создать маршрут 
 	def create_route
 		list_of_stantions
 		puts "Создание маршрута!\nВедите станцию отправления:"
@@ -61,8 +56,10 @@ class Pult
 		end_station = gets.chomp.capitalize
 		route = Route.new(start_stantion, end_station)
 		@routes.push(route)
+		puts "маршрут #{route.stations} создан"
 	end
  	# add station to route Промежуточная
+ 															#13
  	def add_station_to_route
  		route = choose_route
  		puts "введите название промежуточной станции:"
@@ -71,20 +68,25 @@ class Pult
  	end
  	
  	# del station from route
+ 															#14
  	def del_station_from_route
  		route = choose_route
  		puts "какую станцию удаляем?"
  		station = gets.chomp.capitalize
  		route.del_way_station(station)
  	end
-	#6 5 назначение маршрута
+															#6  назначение маршрута
  	def  appoint_route
- 		#puts "Выберите поезд"
- 		choose_train
- 		#puts "Выберите маршрут"
- 		choose_route
+ 		train = choose_train
+ 		route = choose_route
+ 		train.set_route(route)
+ 		put_train_on_route
+ 		puts "маршрут назначен "
  	end
-
+															#12 показ существующих маршрутов
+ 	def show_ready_routes
+ 		@routes.each_with_index {|route, i| puts " маршрут #{i + 1}- #{route.stations}"}
+ 	end
 
 
 
@@ -95,6 +97,7 @@ class Pult
 
 
 #Добавлять вагоны к поезду
+															#7
 	def add_wagon_to_train
 		train = choose_train
 		puts "выберите тип вагона:"
@@ -114,6 +117,7 @@ class Pult
 	end
 
 #Отцеплять вагоны от поезда
+																#8
 	def del_wagon_from_train
 		train = choose_train
 		wagon = choose_wagon(train)
@@ -122,11 +126,12 @@ class Pult
 	end
 
 #Перемещать поезд по маршруту вперед и назад
+																#10
 	def move_train_forvard
 		train = choose_train
 		train.go_to_next_station
 	end
-
+																#11
 	def move_train_back
 		train = choose_train
 		train.go_to_last_station
@@ -134,10 +139,13 @@ class Pult
 
 
 #Просматривать список станций и список поездов на станции
+																#4
 	def list_of_stantions
 		puts "просмотр всех имеющихся станций"
 		@stations.each_with_index {|station, i| puts "#{i + 1} - #{station.name}"}
 	end
+
+																#5
 	def list_of_trains
 		puts "выберите номер нужной станции на которой проверим наличие поезда:"
 		@stations.each_with_index {|st, i| puts "#{i + 1} - #{st.name}"}
@@ -147,6 +155,9 @@ class Pult
 		current_station.all_trains#(station)
 		#@trains.each_with_index {|train, i| puts "#{i + 1} - #{train}" }
 	end
+
+
+
 # game controller
 	def start_game
 		puts "список команд с номерами"
@@ -158,13 +169,13 @@ class Pult
 			command = gets.to_i
 			case command
 				when 1
-					create_stantion
+					create_stantion  # working
 				when 2
 					create_train
 				when 3
-					create_route
+					create_route     #working
 				when 4
-					list_of_stantions
+					list_of_stantions  # working
 				when 5
 					list_of_trains
 				when 6 
@@ -173,14 +184,20 @@ class Pult
 					add_wagon_to_train		
 				when 8
 					del_wagon_from_train
-				when 9
-					# присвоение маршрута
 				when 10
 					move_train_forvard
 				when 11 
 					move_train_back
 				when 11
-					put_train_on_route	
+					put_train_on_route
+				when 12
+					show_ready_routes	#working
+				when 13
+					add_station_to_route  #working
+				when 14
+					del_station_from_route #working
+				when 0
+					exit																								
 				else
 					puts "что то не так ввел"
 						
@@ -211,7 +228,7 @@ class Pult
 		if @routes.empty?
 			puts "сначало зарегистрируйте маршруты"
 		else
-		@routes.each_with_index {|route, index| puts "#{index + 1} - #{route.inspect}"} # что то не дошло как сделать вывод красивей
+		@routes.each_with_index {|route, index| puts "#{index + 1} - #{route.stations}"} # что то не дошло как сделать вывод красивей
 		index_of_route = gets.to_i
 		routes[index_of_route - 1]
 		end
