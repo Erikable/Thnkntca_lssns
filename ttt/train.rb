@@ -49,7 +49,8 @@ class Train
   end
   
   def next_station
-    next_station = @route.route[@index + 1] #current_station[] #@route.route[]  # stations[@index.next]
+    @route.route[@index.next]
+    #next_station = @current_station[@index + 1] #current_station[] #@route.route[]  # stations[@index.next]
   end
 
   def last_station
@@ -57,7 +58,11 @@ class Train
   end
 
   def go_to_next_station
-    puts "1010101010"
+    
+    #next_station #это следущая ст W
+
+    @current_station.send_train(self)
+
     #if @index == @route.stations[-1] 
     #  puts "поезд на последней станции!!!"
     #else
