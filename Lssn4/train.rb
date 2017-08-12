@@ -87,12 +87,14 @@ class Train
 
   def set_route(route)
    @marshrut = route
+   @current_station = marshrut.first # added
   end
 
-  def put_train_on_route
-    current_station.take_train(self) 
-    #@train_on_route = @marshrut[@index]
-  end
+  #def put_train_on_route
+  #  #@current_station = @marshrut.first
+  #  current_station.take_train(self) 
+  #  #@train_on_route = @marshrut[@index]
+  #end
 
   def show_stations
     puts "now is #{current_station.name} station"

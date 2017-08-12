@@ -55,7 +55,7 @@ route_1.del_way_station(turmantas)			# удаляю промеж ст
 route_1.show_all_stations					# вывод станций в нашем маршруте
 puts
 passanger_train_1.set_route(route_1)
-passanger_train_1.put_train_on_route
+#passanger_train_1.put_train_on_route
 passanger_train_1.show_stations 					# now is...
 
 route_1.show_all_stations					# 1- moscow 2 - vilnius 3 - visaginas

@@ -12,6 +12,7 @@ require_relative "passanger_wagon"
 
 class Pult
 	attr_reader :trains, :stations, :routes
+	#attr_writer :stations
 	def initialize
 		@trains = []
 		@stations = []
@@ -80,8 +81,9 @@ class Pult
  		train = choose_train
  		route = choose_route
  		train.set_route(route)
- 		put_train_on_route
  		puts "маршрут назначен "
+ 		train.put_train_on_route
+ 		puts "поезд помещен на 1ю станцию в маршруте "
  	end
 															#12 показ существующих маршрутов
  	def show_ready_routes
@@ -171,19 +173,19 @@ class Pult
 				when 1
 					create_stantion  # working
 				when 2
-					create_train
+					create_train  #done
 				when 3
 					create_route     #working
 				when 4
 					list_of_stantions  # working
 				when 5
-					list_of_trains
+					list_of_trains  #done
 				when 6 
 					appoint_route
 				when 7 
-					add_wagon_to_train		
+					add_wagon_to_train	 #done	
 				when 8
-					del_wagon_from_train
+					del_wagon_from_train  #done
 				when 10
 					move_train_forvard
 				when 11 
