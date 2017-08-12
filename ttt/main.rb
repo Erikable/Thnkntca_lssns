@@ -107,8 +107,9 @@ class Main
   end
 
   def move_forward
-    train = choose_train
-    train.go_to_next_station
+    puts "202020202"
+    #train = choose_train
+    #train.go_to_next_station
   end
 
   def move_back
@@ -145,7 +146,7 @@ class Main
         when 7 then add_carriage_to_train   #  done
         when 8 then del_carriage_from_train  # done
         when 9 then trains
-        when 10 then move_train_forvard
+        when 10 then move_forvard
         when 11 then move_train_back
         when 11 then put_train_on_route
         when 12 then show_ready_routes #  1/2 done
