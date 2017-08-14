@@ -40,38 +40,39 @@ class Train
     end
   end
 
-
-  def take_route(route)
-    @route = route
-    @current_station = @route.route[@index]#.first
-    puts "Поезду назначен маршрут следования."
-    puts "Поезд находится на станции #{current_station} (маршрут от #{@route.route.first} до #{@route.route.last})"
+  
+  def set_route(route)
+   @marshrut = route
   end
   
-  def next_station
-    @route.route[@index.next]
-    #next_station = @current_station[@index + 1] #current_station[] #@route.route[]  # stations[@index.next]
+  def put_train_on_route
+    @current_station.take_train(self) 
+    #@train_on_route = @marshrut[@index]
+  end
+
+  def current_station
+    @current_station = @marshrut.route[@index] #@current_station = @marshrut.stations[@index]
   end
 
   def last_station
-    last_station = current_station[pred]
+    @last_station = @marshrut.stations[@index.pred]
+  end
+
+  def next_station
+    @marshrut.stations[@index.next] || nil.class
+    #@next_station = @marshrut.stations[@index.next] #succ аналог next
   end
 
   def go_to_next_station
-    
-    #next_station #это следущая ст W
-
-    @current_station.send_train(self)
-
-    #if @index == @route.stations[-1] 
-    #  puts "поезд на последней станции!!!"
-    #else
-    #  @current_station.send_train(self) 
-    #  @current_station = next_station 
-    #  @index += 1
-    #  @current_station.take_train(self)
-    #  puts "поезд прибыл на следующую станцию #{@current_station.name}"
-    #end
+    if @index == @marshrut.stations[-1]
+      puts "поезд на последней станции!!!"
+    else
+      @current_station.send_train(self) 
+      @current_station = next_station 
+      @index += 1
+      @current_station.take_train(self)
+      puts "поезд прибыл на следующую станцию #{@current_station.name}"
+    end
   end
 
   def go_to_last_station
@@ -85,6 +86,7 @@ class Train
       puts "Поезд поехал на предыдущую станцию = #{current_station.name}"
     end
   end
+
 
 
 

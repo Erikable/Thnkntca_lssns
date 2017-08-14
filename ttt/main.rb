@@ -127,7 +127,13 @@ class Main
   def appoint_route
     train = choose_train
     route = choose_route
-    train.take_route(route)
+    train.set_route(route)
+    puts train.current_station
+
+    train.current_station.take_train(train)
+    #train.put_train_on_route
+    puts "done"
+    #train.put_train_on_route
   end
   
   def start_game
@@ -139,16 +145,16 @@ class Main
         when 1 then create_station  # done
         when 2 then create_train  # done
         when 3 then create_route     #done
-        when 4 then list_of_stations  #done
-        when 5 then list_of_trains  #done
-        when 6 then appoint_route
-        when 7 then add_carriage_to_train   #  done
-        when 8 then del_carriage_from_train  # done
+        when 4 then list_of_stations  #
+        when 5 then list_of_trains  #
+        when 6 then appoint_route  #
+        when 7 then add_carriage_to_train   #  
+        when 8 then del_carriage_from_train  # 
         when 9 then trains
         when 10 then move_forward
         when 11 then move_train_back
         when 11 then put_train_on_route
-        when 12 then show_ready_routes #  1/2 done
+        when 12 then show_ready_routes #
         when 13 then add_station_to_route  #
         when 14 then del_station_from_route #
         when 0 then exit                                                
