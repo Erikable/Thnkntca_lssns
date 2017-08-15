@@ -4,7 +4,6 @@ class Train
   attr_accessor :stations
   def initialize(number)#, type)
     @number = number
-    #@type = type
     @wagons_quantity = 0
     @speed = 0
     @index = 0
@@ -42,12 +41,8 @@ class Train
 
   
   def set_route(route)
-   @marshrut = route
-  end
-  
-  def put_train_on_route
-    @current_station.take_train(self) 
-    #@train_on_route = @marshrut[@index]
+    @marshrut = route
+    current_station.take_train(self)
   end
 
   def current_station
@@ -56,7 +51,11 @@ class Train
   end
 
   def last_station
-    @last_station = @marshrut.route[@index.pred]
+    if @index.pred < 0
+      @marshrut.route.first
+    else 
+      @last_station = @marshrut.route[@index.pred]
+    end
   end
 
   def next_station
@@ -64,26 +63,24 @@ class Train
   end
 
   def go_to_next_station
-    if current_station == @marshrut.route.size - 1
+    if current_station == @marshrut.route.last
       puts "поезд на последней станции!!!"
     else
-      @current_station.send_train(self) 
-      @current_station = next_station 
+      current_station.send_train(self) 
       @index += 1
-      @current_station.take_train(self)
-      puts "поезд прибыл на следующую станцию #{@current_station.title}"
+      current_station.take_train(self)
+      puts "поезд прибыл на следующую станцию #{current_station.title}"
     end
   end
 
   def go_to_last_station
-    if @index == 0
+    if current_station == @marshrut.route.first #@index == 0
       puts "поезд на первой станции!!!"
     else
-      @current_station.send_train(self)
-      @current_station = last_station
+      current_station.send_train(self)
       @index -= 1
-      @current_station.take_train(self)
-      puts "Поезд поехал на предыдущую станцию = #{current_station.name}"
+      current_station.take_train(self)
+      puts "Поезд поехал на предыдущую станцию = #{current_station.title}"
     end
   end
 

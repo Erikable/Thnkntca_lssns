@@ -44,10 +44,11 @@ class Main
   def create_route
     list_of_stations
     puts "Создание маршрута...\nВедите станцию отправления:"
-    start_station = gets.chomp.capitalize
+    start_station = gets.to_i
+    list_of_stations
     puts "Введите станцию назначения"
-    end_station = gets.chomp.capitalize
-    route = Route.new(Station.new(start_station), Station.new(end_station))
+    end_station = gets.to_i
+    route = Route.new(@stations[start_station - 1], @stations[end_station - 1])
     @routes.push(route)
     puts "маршрут #{route.stations} создан"
   end
@@ -98,11 +99,13 @@ class Main
 
   def show_trains_on_station
     puts "выберите номер нужной станции на которой проверим наличие поезда:"
+    puts @stations.inspect
     @stations.each_with_index {|station, i| puts "#{i + 1} - #{station.title}"}
     station = gets.to_i
     current_station = @stations[station - 1]
     #puts "поезда на станции #{current_station.title} :"
-    @stations[station - 1].trains.each_with_index {|train, i| puts "#{i} #{train}"}  #!!!!!!!!!
+    puts @stations[station - 1].trains.inspect  
+    #@stations[station - 1].trains.each_with_index {|train, i| puts "#{i} #{train}"}  #!!!!!!!!!
     #@trains.each_with_index {|train, i| puts "#{i + 1} - #{train}" }
   end
 
@@ -130,7 +133,7 @@ class Main
     train.set_route(route)
     puts train.current_station
 
-    train.current_station.take_train(train)
+    #train.current_station.take_train(train)
     puts "поезд #{train.number} расположен на #{train.current_station.title}"
   end
   
