@@ -1,6 +1,6 @@
 class Train
 
-  attr_accessor :current_speed, :carriages, :current_station, :current_route, :number, :type, :route
+  attr_accessor :current_speed, :carriages, :current_route, :number, :type, :route
   attr_accessor :stations
   def initialize(number)#, type)
     @number = number
@@ -52,6 +52,7 @@ class Train
 
   def current_station
     @current_station = @marshrut.route[@index] #@current_station = @marshrut.stations[@index]
+
   end
 
   def last_station
@@ -59,7 +60,7 @@ class Train
   end
 
   def next_station
-    @marshrut.stations[@index.next] || nil.class
+    @marshrut.route[@index.next] || nil.class
     #@next_station = @marshrut.stations[@index.next] #succ аналог next
   end
 

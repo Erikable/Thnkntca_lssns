@@ -47,7 +47,7 @@ class Main
     start_station = gets.chomp.capitalize
     puts "Введите станцию назначения"
     end_station = gets.chomp.capitalize
-    route = Route.new(start_station, end_station)
+    route = Route.new(Station.new(start_station), Station.new(end_station))
     @routes.push(route)
     puts "маршрут #{route.stations} создан"
   end
@@ -56,7 +56,7 @@ class Main
     route = choose_route
     puts "введите название промежуточной станции:"
     station = gets.chomp.capitalize
-    route.add_way_station(station)
+    route.add_station(station)
     puts "промеж. станция добавлена в маршрут: (#{route})"
   end
 
@@ -64,7 +64,7 @@ class Main
     route = choose_route
     puts "какую станцию удаляем?"
     station = gets.chomp.capitalize
-    route.del_way_station(station)
+    route.del_station(station)
   end
 
   def add_carriage_to_train
@@ -96,13 +96,13 @@ class Main
     @stations.each_with_index {|station, i| puts "#{i + 1} - #{station.title}"}
   end
 
-  def show_trains_on_route
+  def show_trains_on_station
     puts "выберите номер нужной станции на которой проверим наличие поезда:"
-    @stations.each_with_index {|st, i| puts "#{i + 1} - #{st.name}"}
+    @stations.each_with_index {|station, i| puts "#{i + 1} - #{station.title}"}
     station = gets.to_i
     current_station = @stations[station - 1]
-    puts "поезда на станции #{current_station.name} :"
-    current_station.all_trains#(station)
+    #puts "поезда на станции #{current_station.title} :"
+    @stations[station - 1].trains.each_with_index {|train, i| puts "#{i} #{train}"}  #!!!!!!!!!
     #@trains.each_with_index {|train, i| puts "#{i + 1} - #{train}" }
   end
 
@@ -131,9 +131,7 @@ class Main
     puts train.current_station
 
     train.current_station.take_train(train)
-    #train.put_train_on_route
-    puts "done"
-    #train.put_train_on_route
+    puts "поезд #{train.number} расположен на #{train.current_station.title}"
   end
   
   def start_game
@@ -146,7 +144,7 @@ class Main
         when 2 then create_train  # done
         when 3 then create_route     #done
         when 4 then list_of_stations  #
-        when 5 then list_of_trains  #
+        when 5 then show_trains_on_station #list_of_trains  #
         when 6 then appoint_route  #
         when 7 then add_carriage_to_train   #  
         when 8 then del_carriage_from_train  # 

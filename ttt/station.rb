@@ -13,6 +13,11 @@ class Station
     @trains.delete(train)
   end
 
+  def all_trains  #!!!!!!!!!
+    puts "поезда на станции #{self.title}:"
+    @trains.each_with_index {|t, i| puts "#{i + 1} - #{t.number}/#{t.type}"}
+  end
+
   def get_train_list
     @trains.each { |t| puts t }
   end
