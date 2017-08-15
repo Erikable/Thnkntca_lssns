@@ -51,28 +51,27 @@ class Train
   end
 
   def current_station
-    @current_station = @marshrut.route[@index] #@current_station = @marshrut.stations[@index]
+    @current_station = @marshrut.route[@index] 
 
   end
 
   def last_station
-    @last_station = @marshrut.stations[@index.pred]
+    @last_station = @marshrut.route[@index.pred]
   end
 
   def next_station
-    @marshrut.route[@index.next] || nil.class
-    #@next_station = @marshrut.stations[@index.next] #succ аналог next
+    @marshrut.route[@index.next]
   end
 
   def go_to_next_station
-    if @index == @marshrut.stations[-1]
+    if current_station == @marshrut.route.size - 1
       puts "поезд на последней станции!!!"
     else
       @current_station.send_train(self) 
       @current_station = next_station 
       @index += 1
       @current_station.take_train(self)
-      puts "поезд прибыл на следующую станцию #{@current_station.name}"
+      puts "поезд прибыл на следующую станцию #{@current_station.title}"
     end
   end
 
