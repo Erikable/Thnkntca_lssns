@@ -17,7 +17,7 @@ class Route
   end
 
   def get_station_list
-     @route.each { |e| puts e }
+    @route.each { |e| puts e }
   end
 
 end

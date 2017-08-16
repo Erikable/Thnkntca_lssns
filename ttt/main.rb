@@ -55,17 +55,23 @@ class Main
 
   def add_station_to_route
     route = choose_route
-    puts "введите название промежуточной станции:"
-    station = gets.chomp.capitalize
-    route.add_station(station)
+    puts "выбери номер станции для добавления в маршрут"
+    choose_station
+    #@stations.each_with_index {|st, i| puts " #{i + 1} - #{st.title}"}
+    #index_of_station = gets.to_i
+    #st = stations[index_of_station - 1]
+    route.add_station(@st)
     puts "промеж. станция добавлена в маршрут: (#{route})"
   end
 
   def del_station_from_route
     route = choose_route
-    puts "какую станцию удаляем?"
-    station = gets.chomp.capitalize
-    route.del_station(station)
+    puts "выбери номер станции для удаления из маршрут"
+    choose_station
+    #@stations.each_with_index {|st, i| puts " #{i + 1} - #{st.title}"}
+    #index_of_station = gets.to_i
+    #st = stations[index_of_station - 1]
+    route.del_station(@st)
   end
 
   def add_carriage_to_train
@@ -153,7 +159,7 @@ class Main
         when 8 then del_carriage_from_train  # 
         when 9 then trains
         when 10 then move_forward
-        when 11 then move_train_back
+        when 11 then move_back
         when 11 then put_train_on_route
         when 12 then show_ready_routes #
         when 13 then add_station_to_route  #
@@ -187,9 +193,22 @@ class Main
     if @routes.empty?
       puts "сначало зарегистрируйте маршруты"
     else
-    @routes.each_with_index {|route, index| puts "#{index + 1} - #{route.inspect}"}
+    @routes.each_with_index {|route, index| puts "#{index + 1} - #{route.inspect}"} # вот тут не дошло до меня
     index_of_route = gets.to_i
     routes[index_of_route - 1]
     end
   end
+  def choose_station
+    @stations.each_with_index {|st, i| puts " #{i + 1} - #{st.title}"}
+    index_of_station = gets.to_i
+    @st = stations[index_of_station - 1]
+  end
+
 end
+
+
+
+
+
+
+

@@ -13,7 +13,7 @@ class Station
     @trains.delete(train)
   end
 
-  def all_trains  #!!!!!!!!!
+  def all_trains
     puts "поезда на станции #{self.title}:"
     @trains.each_with_index {|t, i| puts "#{i + 1} - #{t.number}/#{t.type}"}
   end
@@ -22,8 +22,11 @@ class Station
     @trains.each { |t| puts t }
   end
 
+  
   def trains_by_type(tr_type)
     arr = @trains.find_all{ |t| t.type == tr_type } 
     arr.size
   end
+
+
 end
