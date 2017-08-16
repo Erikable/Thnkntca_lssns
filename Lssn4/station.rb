@@ -1,32 +1,32 @@
-class Station
-
-  attr_reader :name
- 
-  def initialize(name)
-    @name = name
+class Station 
+  attr_reader :title, :trains
+  def initialize(title)
+    @title = title
     @trains = []
   end
 
   def take_train(train)
     @trains.push(train)
   end
-  
+
   def send_train(train)
     @trains.delete(train)
   end
 
-
   def all_trains
-    @trains.each {|train| puts "#Поезд - {train.number}, тип - #{train.type}  находится он на станции: #{self.name}" }
+    puts "поезда на станции #{self.title}:"
+    @trains.each_with_index {|t, i| puts "#{i + 1} - #{t.number}/#{t.type}"}
   end
 
-  def show_trains_type(type)
-    @trains.each do |train|
-      puts " Train = #{train.number} его тип = #{train.type}  находится он на станции #{self.name}" if train.type == type
-    end
+  def get_train_list
+    @trains.each { |t| puts t }
   end
+
   
-  # все методы в паблике, аналогичто маршруту
-  private
-  attr_reader :trains #
+  def trains_by_type(tr_type)
+    arr = @trains.find_all{ |t| t.type == tr_type } 
+    arr.size
+  end
+
+
 end

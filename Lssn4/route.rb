@@ -1,25 +1,23 @@
 class Route
-  
-  attr_reader :stations
-
+  attr_accessor :stations, :route
   def initialize(start_station, end_station)
-		@stations = [start_station, end_station]
+    @route = [start_station, end_station]
   end
 
-  def add_way_station(station)
-    @stations.insert(-2, station)
+  def add_station(station)
+    @route.insert(-2, station)
   end
 
-  def del_way_station(station)
-    @stations.delete(station)
+  def del_station(station)
+    if @route.include? station
+      @route.delete(station)
+    else
+      puts "Станции #{station} нет в маршруте!"
+    end
   end
 
-  def show_all_stations
-    @stations.each_with_index {|station, index| puts " #{index + 1} - #{station.name}"}
+  def get_station_list
+    @route.each { |e| puts e }
   end
-  # тут паблик все тк всеми методами пользуемся (из экземпляра класса (rout-1 = Route.new) 
-  
-  private
-  #attr_writer :stations 
 
 end
