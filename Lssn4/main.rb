@@ -57,9 +57,6 @@ class Main
     route = choose_route
     puts "выбери номер станции для добавления в маршрут"
     choose_station
-    #@stations.each_with_index {|st, i| puts " #{i + 1} - #{st.title}"}
-    #index_of_station = gets.to_i
-    #st = stations[index_of_station - 1]
     route.add_station(@st)
     puts "промеж. станция добавлена в маршрут: (#{route})"
   end
@@ -68,9 +65,6 @@ class Main
     route = choose_route
     puts "выбери номер станции для удаления из маршрут"
     choose_station
-    #@stations.each_with_index {|st, i| puts " #{i + 1} - #{st.title}"}
-    #index_of_station = gets.to_i
-    #st = stations[index_of_station - 1]
     route.del_station(@st)
   end
 
@@ -82,7 +76,6 @@ class Main
     if type == 1
       carriage = PassengerCarriage.new
       train.add_carriage(carriage)
-      #puts train.carriages
     elsif type == 2
       carriage = CargoCarriage.new
       train.add_carriage(carriage)
@@ -109,10 +102,7 @@ class Main
     @stations.each_with_index {|station, i| puts "#{i + 1} - #{station.title}"}
     station = gets.to_i
     current_station = @stations[station - 1]
-    #puts "поезда на станции #{current_station.title} :"
     puts @stations[station - 1].trains.inspect  
-    #@stations[station - 1].trains.each_with_index {|train, i| puts "#{i} #{train}"}  #!!!!!!!!!
-    #@trains.each_with_index {|train, i| puts "#{i + 1} - #{train}" }
   end
 
   def move_forward
@@ -138,8 +128,6 @@ class Main
     route = choose_route
     train.set_route(route)
     puts train.current_station
-
-    #train.current_station.take_train(train)
     puts "поезд #{train.number} расположен на #{train.current_station.title}"
   end
   
