@@ -8,7 +8,7 @@ class Train
   attr_reader :wagons
   attr_reader :carriages
   attr_reader :manufacturer
-  
+
   @@trains = []
   def initialize(number)
     @number = number
@@ -17,6 +17,7 @@ class Train
     @index = 0
     @carriages = []
     @@trains << self
+    register_instance # увеличивает счетчик кол-ва экземпляров класса и который можно вызвать из конструктора
   end
 
   def self.find(number)
