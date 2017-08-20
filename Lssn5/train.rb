@@ -7,20 +7,33 @@ class Train
   attr_reader :wagons
   attr_reader :carriages
   attr_reader :manufacturer
-
-  def initialize(number)#, type)
+  @@trains = []
+  def initialize(number)
     @number = number
     @wagons_quantity = 0
     @speed = 0
     @index = 0
     @carriages = []
+    @@trains << self
   end
+
+  def self.find(number)
+    train = @@trains.select {|train| puts train.number == number}
+    if train.
+      train
+    else
+      puts "pustosh" 
+    end
+  end
+
   def speed_up
     @current_speed += 13
   end
+
   def stop_train
     @current_speed = 0
   end
+
   def add_carriage(carriage)
     if @speed == 0 
       if carriage.type == self.type
@@ -34,6 +47,7 @@ class Train
       puts "Не смог прибавить вагон(еще едем)"
     end
   end
+
   def del_carriage(carriage)
     if @carriages.size.zero?
       puts "вагонов на отцепку нет"

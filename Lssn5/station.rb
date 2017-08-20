@@ -4,7 +4,7 @@ class Station
   def initialize(title)
     @title = title
     @trains = []
-    #добавление в @@stantions 
+    @@stations << self 
   end
 
   def self.all
