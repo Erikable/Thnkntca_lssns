@@ -1,5 +1,6 @@
 class Train
   include Manufacturer
+  include InstanceCounter
   attr_reader :type
   attr_reader :number
   attr_reader :current_station
@@ -7,6 +8,7 @@ class Train
   attr_reader :wagons
   attr_reader :carriages
   attr_reader :manufacturer
+  
   @@trains = []
   def initialize(number)
     @number = number
@@ -19,10 +21,10 @@ class Train
 
   def self.find(number)
     train = @@trains.select {|train| puts train.number == number}
-    if train.
-      train
-    else
+    if train.empty?
       puts "pustosh" 
+    else
+      train
     end
   end
 
