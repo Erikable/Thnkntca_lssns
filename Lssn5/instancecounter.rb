@@ -5,11 +5,11 @@ module InstanceCounter
     base.send :include, InstanceMethods
   end
 	
-	module ClassMethods 
-		def instances #возвращает кол-во экземпляров данного класса
-			@instances
-		end
-	end
+  module ClassMethods 
+  	def instances #возвращает кол-во экземпляров данного класса
+  		@instances
+  	end
+  end
 
 	module InstanceMethods
     protected
