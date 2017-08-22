@@ -1,3 +1,5 @@
+require_relative "instancecounter"
+require_relative "manufacturer"
 require_relative "station.rb"
 require_relative "route.rb"
 require_relative "train.rb"
@@ -130,6 +132,13 @@ class Main
     puts train.current_station
     puts "поезд #{train.number} расположен на #{train.current_station.title}"
   end
+
+  def ddd
+    puts "number of train to find:"
+    number = gets.to_i
+    hf = Train.find(number)
+    puts "Train - #{hf.number} | #{hf.type}"
+  end
   
   def start_game
     File.open('commands.txt').each { |c| puts c }
@@ -152,6 +161,7 @@ class Main
         when 12 then show_ready_routes #
         when 13 then add_station_to_route  #
         when 14 then del_station_from_route #
+        when 15 then ddd
         when 0 then exit                                                
         else
           puts "что то не так ввел"  

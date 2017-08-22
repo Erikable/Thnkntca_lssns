@@ -5,10 +5,14 @@ module InstanceCounter
     base.send :include, InstanceMethods
   end
 	
-  module ClassMethods 
-  	def instances #возвращает кол-во экземпляров данного класса
+  module ClassMethods
+    attr_reader :instances 
+  
+    protected	
+  
+    def increase_instances #возвращает кол-во экземпляров данного класса
       @instances ||= 0
-  		@instances
+  		@instances += 1
   	end
   end
 
@@ -16,7 +20,7 @@ module InstanceCounter
     protected
     attr_writer :instances
 		def register_instance # увеличивает счетчик кол-ва экземпляров класса и который можно вызвать из конструктора. При этом данный метод не должен быть публичным.
-			self.class.instances += 1
+			self.class.send :increase_instances
 		end
 	end
 
