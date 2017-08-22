@@ -6,11 +6,11 @@ module InstanceCounter
   end
 	
   module ClassMethods
-    attr_reader :instances 
+    attr_reader :instances #возвращает кол-во экземпляров данного класса
   
     protected	
   
-    def increase_instances #возвращает кол-во экземпляров данного класса
+    def increase_instances 
       @instances ||= 0
   		@instances += 1
   	end
