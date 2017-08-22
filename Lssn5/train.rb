@@ -9,24 +9,19 @@ class Train
   attr_reader :carriages
   attr_reader :manufacturer
 
-  @@trains = []
+  @@trains = {}
   def initialize(number)
     @number = number
     @wagons_quantity = 0
     @speed = 0
     @index = 0
     @carriages = []
-    @@trains << self
+    @@trains[number] = self
     register_instance # увеличивает счетчик кол-ва экземпляров класса и который можно вызвать из конструктора
   end
 
   def self.find(number)
-    train = @@trains.select {|train| puts train.number == number}
-    if train.empty?
-      puts "pustosh" 
-    else
-      train
-    end
+    @@trains[number]
   end
 
   def speed_up
