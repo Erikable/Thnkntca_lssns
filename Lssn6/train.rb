@@ -11,7 +11,7 @@ class Train
 
 
   @@trains = {}
-  NUMBER_FORMAT = #/^[а-я]{1}\d{3}[а-я]{2}$/
+  #NUMBER_FORMAT = #/^[а-я]{1}\d{3}[а-я]{2}$/
   def initialize(number)
     @number = number
     @wagons_quantity = 0
@@ -28,10 +28,11 @@ class Train
   rescue
     false
   end
+  
   def validate!
     raise "Number can't be nil" if number.nil?
     raise "Ошибка ! должно быть не менее 5 знаков" if number.to_s.length < 5 
-    raise "Number has invalid format" if number !~ NUMBER_FORMAT
+    #raise "Number has invalid format" if number !~ NUMBER_FORMAT
     true
   end
 

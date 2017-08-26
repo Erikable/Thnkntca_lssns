@@ -5,6 +5,20 @@ class Station
     @title = title
     @trains = []
     @@stations << self 
+    validate!
+  end
+
+  def valid?
+    validate!
+  rescue
+    false
+  end
+  
+  def validate!
+    raise "title can't be nil" if title.nil?
+    raise "Ошибка ! должно быть не менее 2 знаков" if title.to_s.length < 2 
+    #raise "Number has invalid format" if number !~ NUMBER_FORMAT
+    true
   end
 
   def self.all

@@ -4,13 +4,8 @@ class PassengerTrain < Train
   	super
   end
 
-  def valid?
-    validate!
-  rescue
-    false
-  end
-  def validate!
-    raise "Тип не того типа" if self.train != self.type
+  def validate! # вообще наверно идиотизм проверять это,,,
+    raise "Тип не того типа" if self.type != :passenger
     true
   end
 
