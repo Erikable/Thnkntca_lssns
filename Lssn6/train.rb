@@ -25,15 +25,16 @@ class Train
 
   def valid?
     validate!
+    true
   rescue
     false
   end
-  
+
   def validate!
     raise "Number can't be nil" if number.nil?
+    raise "number can't be empty" if number.empty?
     raise "Ошибка ! должно быть не менее 5 знаков" if number.to_s.length < 5 
     #raise "Number has invalid format" if number !~ NUMBER_FORMAT
-    true
   end
 
   def self.find(number)

@@ -15,7 +15,8 @@ class Station
   end
   
   def validate!
-    raise "title can't be nil" if title.nil?
+    raise "title can't be nil" if title.nil?  # || empty?
+    raise "title can't be empty" if title.empty?
     raise "Ошибка ! должно быть не менее 2 знаков" if title.to_s.length < 2 
     #raise "Number has invalid format" if number !~ NUMBER_FORMAT
     true
