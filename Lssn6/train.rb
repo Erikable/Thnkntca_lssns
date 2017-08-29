@@ -14,13 +14,13 @@ class Train
   #NUMBER_FORMAT = #/^[а-я]{1}\d{3}[а-я]{2}$/
   def initialize(number)
     @number = number
+    validate!
     @wagons_quantity = 0
     @speed = 0
     @index = 0
     @carriages = []
     @@trains[number] = self
     register_instance # увеличивает счетчик кол-ва экземпляров класса и который можно вызвать из конструктора
-    validate!
   end
 
   def valid?
@@ -32,8 +32,8 @@ class Train
 
   def validate!
     raise "Number can't be nil" if number.nil?
-    raise "number can't be empty" if number.empty?
-    raise "Ошибка ! должно быть не менее 5 знаков" if number.to_s.length < 5 
+    raise "number can't be empty" if number == ""
+    raise "Должно быть не менее 5 знаков в виде ХХХ-ХХ" if number.to_s.length < 5 
     #raise "Number has invalid format" if number !~ NUMBER_FORMAT
   end
 

@@ -6,6 +6,7 @@ class PassengerTrain < Train
 
   def validate! # вообще наверно идиотизм проверять это,,,
     raise "Тип не того типа" if self.type != :passenger
+    super
   end
 
 end

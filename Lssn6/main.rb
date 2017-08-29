@@ -23,9 +23,10 @@ class Main
     station_title = Station.new(title)
     @stations.push(station_title)
   end
-
+  
   def create_train
-    puts "введи номер поезда:"
+    error_times = 0
+    puts "введи номер поезда (xxx-xx):"
     number = gets.to_i
     puts "Выберите его тип:"
     puts "1 - Пассажирский     2 - Грузовой"
@@ -41,6 +42,12 @@ class Main
       puts "попробуй заного"
       return create_train 
     end
+  rescue RuntimeError => e
+    error_times += 1
+    puts "Cannot create train"
+    puts "попытка: #{error_times} / 3"
+    puts "ошибка: #{e.message}"
+  retry if error_times < 3
   end
 
   def create_route
