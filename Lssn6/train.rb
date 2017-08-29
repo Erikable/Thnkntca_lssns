@@ -8,12 +8,14 @@ class Train
   attr_reader :wagons
   attr_reader :carriages
   attr_reader :manufacturer
-
+  attr_writer :manufacturer
 
   @@trains = {}
-  #NUMBER_FORMAT = #/^[а-я]{1}\d{3}[а-я]{2}$/
-  def initialize(number)
+  NUMBER_FORMAT = /^[0-9a-z]{3}-?[0-9a-z]{2}$/i  #/\^[a-zA-Z0-9]{3}-?[a-zA-Z0-9]{2}$/
+  TF = /^[a-zA-Z0-9]+$/
+  def initialize(number, manufacturer)
     @number = number
+    @manufacturer = manufacturer
     validate!
     @wagons_quantity = 0
     @speed = 0
@@ -30,12 +32,6 @@ class Train
     false
   end
 
-  def validate!
-    raise "Number can't be nil" if number.nil?
-    raise "number can't be empty" if number == ""
-    raise "Должно быть не менее 5 знаков в виде ХХХ-ХХ" if number.to_s.length < 5 
-    #raise "Number has invalid format" if number !~ NUMBER_FORMAT
-  end
 
   def self.find(number)
     @@trains[number]
@@ -128,6 +124,13 @@ class Train
     @marshrut.route[@index.next]
   end
 
+  def validate!
+    raise "Number can't be nil" if number.nil?
+    raise "number can't be empty" if number == ""
+    raise "Должно быть не менее 5 знаков в виде ХХХ-ХХ" if number.to_s.length < 5 
+    raise "Номер позда has invalid format" if number !~ NUMBER_FORMAT
+    raise "имя производителя пусто! теперь создавай поезд заново!" if manufacturer !~ TF # не понял почему но метод Эмпти не прокатил поэтому выкрутился так
+  end
 end
 
 

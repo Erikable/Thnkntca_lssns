@@ -22,32 +22,35 @@ class Main
     title = gets.chomp.capitalize
     station_title = Station.new(title)
     @stations.push(station_title)
+  rescue RuntimeError => r
+    puts "Станция не создана"
+    puts "ошибка: #{r.message}"
+  retry 
   end
   
   def create_train
-    error_times = 0
     puts "введи номер поезда (xxx-xx):"
-    number = gets.to_i
+    number = gets.chomp
+    puts "ВВедите имя производителя: "
+    manufacturer = gets.chomp.to_s
     puts "Выберите его тип:"
     puts "1 - Пассажирский     2 - Грузовой"
     type = gets.to_i
     if type == 1
-      train = PassengerTrain.new(number)
+      train = PassengerTrain.new(number, manufacturer)
       @trains.push(train)
     elsif type == 2
-      train = CargoTrain.new(number)
+      train = CargoTrain.new(number, manufacturer)
       @trains.push(train)
-    else
-      puts "видимо ошибся во вводе"
-      puts "попробуй заного"
-      return create_train 
+    #else
+    #  puts "видимо ошибся во вводе"
+    #  puts "попробуй заного"
+    #  return create_train 
     end
   rescue RuntimeError => e
-    error_times += 1
-    puts "Cannot create train"
-    puts "попытка: #{error_times} / 3"
+    puts "Поезд не создан !"
     puts "ошибка: #{e.message}"
-  retry if error_times < 3
+  retry 
   end
 
   def create_route
@@ -60,6 +63,10 @@ class Main
     route = Route.new(@stations[start_station - 1], @stations[end_station - 1])
     @routes.push(route)
     puts "маршрут #{route.stations} создан"
+  rescue RuntimeError => w
+    puts "маршрут не создан"
+    puts "ошибка: #{w.message}"
+  retry 
   end
 
   def add_station_to_route
@@ -129,7 +136,7 @@ class Main
   end
 
   def trains
-    @trains.each_with_index {|t, i| puts "#{i + 1} - #{t.number} (#{t.type}) "}
+    @trains.each_with_index {|t, i| puts "#{i + 1} - #{t.number} (тип- #{t.type} производитель- #{t.manufacturer}) "}
   end
 
   def appoint_route
