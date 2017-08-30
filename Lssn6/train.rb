@@ -2,7 +2,6 @@ class Train
   include Manufacturer
   include InstanceCounter
   attr_reader :type, :number, :current_station, :speed, :wagons, :carriages
-  attr_accessor :manufacturer
 
   @@trains = {}
   NUMBER_FORMAT = /^[0-9a-z]{3}-?[0-9a-z]{2}$/i
@@ -112,10 +111,8 @@ protected
   end
 
   def validate!
-    raise "Номер поезда не может быть nil" if number.nil?
-    raise "Номер поезда не может быть пустым" if number == ""
     raise "Название поезда должно содержать не менее 5 знаков в формате ХХХ-ХХ" if number.to_s.length < 5 
-    raise "Номер позда не верного вормата (верный формат ХХХ-ХХ) " if number !~ NUMBER_FORMAT
+    raise "Номер позда не верного формата (верный формат ХХХ-ХХ) " if number !~ NUMBER_FORMAT
     raise "Не ввели название производителя для поезда!" if manufacturer !~ TRAIN_FORMAT
   end
 end

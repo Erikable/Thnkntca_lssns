@@ -1,5 +1,6 @@
 class Station 
   attr_reader :title, :trains
+  ES = /^\s*$/
   @@stations = []
   def initialize(title)
     @title = title
@@ -28,7 +29,7 @@ class Station
   end
 
   def all_trains
-    puts "поезда на станции #{self.title}:"
+    puts "Поезда на станции #{self.title}:"
     @trains.each_with_index {|t, i| puts "#{i + 1} - #{t.number}/#{t.type}"}
   end
 
@@ -44,8 +45,7 @@ class Station
 private
  
   def validate!
-    raise "Название не может быть nil" if title.nil?
-    raise "Название не может быть пустым" if title.empty?
+    raise "Название не может быть из пробелов или пустым !" unless title !~ ES
     raise "Должно быть не менее 2 знаков" if title.to_s.length < 2 
   end
 end

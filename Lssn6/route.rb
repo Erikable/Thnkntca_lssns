@@ -32,10 +32,8 @@ private
 
   def validate!
     raise "Начальная и конечная станции не могут быть одинаковы" if route.first == route.last
-    raise "Станция в маршруте не может быть nil" if route.first.nil? || route.last.nil?
-    raise "Станция в маршруте не может быть пустой" if route.first == "" || route.last == ""
-    raise "Первая станция не является станцией!" unless route.first.is_a? (Station)
-    raise "Вторая станция не является станцией!" unless route.last.is_a? (Station) 
+    raise "Первая станция не является станцией! (номер станции не соответствует существующему)" unless route.first.is_a? (Station)
+    raise "Вторая станция не является станцией! (номер станции не соответствует существующему)" unless route.last.is_a? (Station) 
   end
 
 end
