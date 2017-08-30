@@ -31,11 +31,11 @@ class Route
 private
 
   def validate!
-    raise "начальная и конечная не могут быть одинаковы" if route.first == route.last
-    raise "не может быть nil" if route.first.nil? || route.last.nil?
-    raise "не может быть empty" if route.first == "" || route.last == ""
-    raise "1-пока не является станцией" unless route.first.is_a? (Station)
-    raise "2-пока не является станцией" unless route.last.is_a? (Station) 
+    raise "Начальная и конечная станции не могут быть одинаковы" if route.first == route.last
+    raise "Станция в маршруте не может быть nil" if route.first.nil? || route.last.nil?
+    raise "Станция в маршруте не может быть пустой" if route.first == "" || route.last == ""
+    raise "Первая станция не является станцией!" unless route.first.is_a? (Station)
+    raise "Вторая станция не является станцией!" unless route.last.is_a? (Station) 
   end
 
 end

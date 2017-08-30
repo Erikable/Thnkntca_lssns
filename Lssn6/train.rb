@@ -1,18 +1,13 @@
 class Train
   include Manufacturer
   include InstanceCounter
-  attr_reader :type
-  attr_reader :number
-  attr_reader :current_station
-  attr_reader :speed 
-  attr_reader :wagons
-  attr_reader :carriages
-  attr_reader :manufacturer
-  attr_writer :manufacturer
+  attr_reader :type, :number, :current_station, :speed, :wagons, :carriages
+  attr_accessor :manufacturer
 
   @@trains = {}
-  NUMBER_FORMAT = /^[0-9a-z]{3}-?[0-9a-z]{2}$/i  #/\^[a-zA-Z0-9]{3}-?[a-zA-Z0-9]{2}$/
-  TF = /^[a-zA-Z0-9]+$/
+  NUMBER_FORMAT = /^[0-9a-z]{3}-?[0-9a-z]{2}$/i
+  TRAIN_FORMAT = /^[a-zA-Z0-9]+$/
+
   def initialize(number, manufacturer)
     @number = number
     @manufacturer = manufacturer
@@ -22,7 +17,7 @@ class Train
     @index = 0
     @carriages = []
     @@trains[number] = self
-    register_instance # увеличивает счетчик кол-ва экземпляров класса и который можно вызвать из конструктора
+    register_instance
   end
 
   def valid?
@@ -31,7 +26,6 @@ class Train
   rescue
     false
   end
-
 
   def self.find(number)
     @@trains[number]
@@ -49,28 +43,25 @@ class Train
     if @speed == 0 
       if carriage.type == self.type
         @carriages.push(carriage)
-      puts "вагон(#{carriage.type}) прибавлен"
-      puts "вагонов на борту | #{@carriages.size} |"
+      puts "Вагон(#{carriage.type}) прибавлен (всего вагонов прицеплено - #{@carriages.size} )"
       else 
-        puts "Wrong Type = (#{carriage.type})"
+        puts "Не верный тип вагона = (#{carriage.type})"
       end
     else
-      puts "Не смог прибавить вагон(еще едем)"
+      puts "Останови поезд, а только потом пристегивай вагон!"
     end
   end
 
   def del_carriage(carriage)
     if @carriages.size.zero?
-      puts "вагонов на отцепку нет"
+      puts "Вагонов на отцепку нет"
     elsif @speed.zero?
       @carriages.delete(carriage) 
-      puts "вагон (#{carriage}) отцеплен"
-      puts "вагонов на борту | #{@carriages.size} |"
+      puts "Вагон (#{carriage}) отцеплен (всего вагонов прицеплено - #{@carriages.size} )"
     else
-      "остановись и отстегни"
+      "Останови поезд и отстегни вагон!"
     end
   end
-
   
   def set_route(route)
     @marshrut = route
@@ -82,22 +73,20 @@ class Train
 
   end
 
-  
-
   def go_to_next_station
     if current_station == @marshrut.route.last
-      puts "поезд на последней станции!!!"
+      puts "Поезд уже на последней станции!!!(не может двигаться вперед)"
     else
       current_station.send_train(self) 
       @index += 1
       current_station.take_train(self)
-      puts "поезд прибыл на следующую станцию #{current_station.title}"
+      puts "Поезд прибыл на следующую станцию #{current_station.title}"
     end
   end
 
   def go_to_last_station
     if current_station == @marshrut.route.first #@index == 0
-      puts "поезд на первой станции!!!"
+      puts "Поезд на первой станции!!!(не может двигаться назад)"
     else
       current_station.send_train(self)
       @index -= 1
@@ -106,11 +95,9 @@ class Train
     end
   end
 
-  protected 
+protected 
 
-  attr_reader :index 
-  attr_reader :station
-  attr_reader :route
+  attr_reader :index, :station, :route
 
   def last_station
     if @index.pred < 0
@@ -125,11 +112,11 @@ class Train
   end
 
   def validate!
-    raise "Number can't be nil" if number.nil?
-    raise "number can't be empty" if number == ""
-    raise "Должно быть не менее 5 знаков в виде ХХХ-ХХ" if number.to_s.length < 5 
-    raise "Номер позда has invalid format" if number !~ NUMBER_FORMAT
-    raise "имя производителя пусто! теперь создавай поезд заново!" if manufacturer !~ TF # не понял почему но метод Эмпти не прокатил поэтому выкрутился так
+    raise "Номер поезда не может быть nil" if number.nil?
+    raise "Номер поезда не может быть пустым" if number == ""
+    raise "Название поезда должно содержать не менее 5 знаков в формате ХХХ-ХХ" if number.to_s.length < 5 
+    raise "Номер позда не верного вормата (верный формат ХХХ-ХХ) " if number !~ NUMBER_FORMAT
+    raise "Не ввели название производителя для поезда!" if manufacturer !~ TRAIN_FORMAT
   end
 end
 

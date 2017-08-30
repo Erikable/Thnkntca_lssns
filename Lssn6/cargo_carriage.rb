@@ -1,6 +1,7 @@
 class CargoCarriage < Carriage
-	include Manufacturer
-	def initialize
-		@type = :cargo
-	end
+
+  def initialize(manufacturer)
+    super(manufacturer, :cargo)
+  end
+  
 end

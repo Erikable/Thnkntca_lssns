@@ -24,7 +24,7 @@ class Main
     @stations.push(station_title)
   rescue RuntimeError => r
     puts "Станция не создана"
-    puts "ошибка: #{r.message}"
+    puts "Ошибка: #{r.message}"
   retry 
   end
   
@@ -42,10 +42,6 @@ class Main
     elsif type == 2
       train = CargoTrain.new(number, manufacturer)
       @trains.push(train)
-    #else
-    #  puts "видимо ошибся во вводе"
-    #  puts "попробуй заного"
-    #  return create_train 
     end
   rescue RuntimeError => e
     puts "Поезд не создан !"
@@ -62,58 +58,64 @@ class Main
     end_station = gets.to_i
     route = Route.new(@stations[start_station - 1], @stations[end_station - 1])
     @routes.push(route)
-    puts "маршрут #{route.stations} создан"
+    puts "Маршрут #{route.stations} создан"
   rescue RuntimeError => w
-    puts "маршрут не создан"
-    puts "ошибка: #{w.message}"
+    puts "Маршрут не создан"
+    puts "Ошибка: #{w.message}"
   retry 
   end
 
   def add_station_to_route
     route = choose_route
-    puts "выбери номер станции для добавления в маршрут"
+    puts "Выбери номер станции для добавления в маршрут"
     choose_station
     route.add_station(@st)
-    puts "промеж. станция добавлена в маршрут: (#{route})"
+    puts "Промеж. станция добавлена в маршрут: (#{route})"
   end
 
   def del_station_from_route
     route = choose_route
-    puts "выбери номер станции для удаления из маршрут"
+    puts "Выбери номер станции для удаления из маршрут"
     choose_station
     route.del_station(@st)
   end
 
   def add_carriage_to_train
+    puts "Введите название производителя вагона"
+    manufacturer = gets.chomp
     train = choose_train
-    puts "выберите тип вагона:"
+    puts "Выберите тип вагона:"
     puts "1 - Пассажирский     2 - Грузовой"
     type = gets.to_i
     if type == 1
-      carriage = PassengerCarriage.new
+      carriage = PassengerCarriage.new(manufacturer)
       train.add_carriage(carriage)
     elsif type == 2
-      carriage = CargoCarriage.new
+      carriage = CargoCarriage.new(manufacturer)
       train.add_carriage(carriage)
       puts train.carriages
-    else puts "error"
+    else puts "Ошибка (ввели не существующую команду)"
     end
+  rescue RuntimeError => e
+    puts "Вагон не прибавлен!"
+    puts "Ошибка: #{e.message}"
+  retry 
   end
 
   def del_carriage_from_train
     train = choose_train
     carriage = choose_carriage(train)
     train.del_carriage(carriage)
-    puts "вагон отцеплен"
+    puts "Вагон отцеплен"
   end
 
   def list_of_stations
-    puts "просмотр всех имеющихся станций"
+    puts "Просмотр всех имеющихся станций"
     @stations.each_with_index {|station, i| puts "#{i + 1} - #{station.title}"}
   end
 
   def show_trains_on_station
-    puts "выберите номер нужной станции на которой проверим наличие поезда:"
+    puts "Выберите номер нужной станции на которой проверим наличие поезда:"
     puts @stations.inspect
     @stations.each_with_index {|station, i| puts "#{i + 1} - #{station.title}"}
     station = gets.to_i
@@ -132,7 +134,7 @@ class Main
   end
 
   def show_ready_routes
-    @routes.each_with_index {|r, i| puts "готовый маршрут: #{i + 1} - #{r.inspect}"} #не дошло как вызвать из массива станции
+    @routes.each_with_index {|r, i| puts "Готовый маршрут: #{i + 1} - #{r.inspect}"} #не дошло как вызвать из массива станции
   end
 
   def trains
@@ -144,20 +146,20 @@ class Main
     route = choose_route
     train.set_route(route)
     puts train.current_station
-    puts "поезд #{train.number} расположен на #{train.current_station.title}"
+    puts "Поезд #{train.number} расположен на #{train.current_station.title}"
   end
 
-  def ddd
-    puts "number of train to find:"
+  def find
+    puts "Введите номер поезда для его поиска:"
     number = gets.to_i
     hf = Train.find(number)
-    puts "Train - #{hf.number} | #{hf.type}"
+    puts "Поезд - #{hf.number} | #{hf.type}"
   end
   
   def start_game
     File.open('commands.txt').each { |c| puts c }
     loop do
-      puts "введите номер комадны"
+      puts "Введите номер комадны"
       command = gets.to_i
       case command
         when 1 then create_station  # done
@@ -175,10 +177,10 @@ class Main
         when 12 then show_ready_routes #
         when 13 then add_station_to_route  #
         when 14 then del_station_from_route #
-        when 15 then ddd
+        when 15 then find
         when 0 then exit                                                
         else
-          puts "что то не так ввел"  
+          puts "Что-то не так ввел"  
       end   
     end
   end
@@ -187,25 +189,25 @@ class Main
   attr_writer :routes, :trains, :stations
 
   def choose_train
-    puts "выберите порядковый номер нужного поезда"
+    puts "Выберите порядковый номер нужного поезда"
     @trains.each_with_index {|train, index| puts " #{index + 1} - #{train.number} (#{train.type})"}
     index_of_train = gets.to_i
     @trains[index_of_train - 1] 
   end
 
   def choose_carriage(train)
-    puts "выберите вагон"
+    puts "Выберите вагон"
     train.carriages.each_with_index {|carriage, index| puts "Вагон (#{carriage.type})  номер #{index + 1}"}
     index_of_carriage = gets.to_i
     train.carriages[index_of_carriage - 1]
   end
 
   def choose_route
-    puts "выберите маршрут из списка"
+    puts "Выберите маршрут из списка"
     if @routes.empty?
-      puts "сначало зарегистрируйте маршруты"
+      puts "Сначало зарегистрируйте маршруты"
     else
-    @routes.each_with_index {|route, index| puts "#{index + 1} - #{route.inspect}"} # вот тут не дошло до меня
+    @routes.each_with_index {|route, index| puts "#{index + 1} - #{route.inspect}"}
     index_of_route = gets.to_i
     routes[index_of_route - 1]
     end

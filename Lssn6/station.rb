@@ -15,7 +15,6 @@ class Station
     false
   end
   
-
   def self.all
     @@stations
   end
@@ -37,7 +36,6 @@ class Station
     @trains.each { |t| puts t }
   end
 
-  
   def trains_by_type(tr_type)
     arr = @trains.find_all{ |t| t.type == tr_type } 
     arr.size
@@ -46,9 +44,8 @@ class Station
 private
  
   def validate!
-    raise "title can't be nil" if title.nil?  # || empty?
-    raise "title can't be empty" if title.empty?
-    raise "Ошибка ! должно быть не менее 2 знаков" if title.to_s.length < 2 
-    #raise "Number has invalid format" if number !~ NUMBER_FORMAT
+    raise "Название не может быть nil" if title.nil?
+    raise "Название не может быть пустым" if title.empty?
+    raise "Должно быть не менее 2 знаков" if title.to_s.length < 2 
   end
 end
