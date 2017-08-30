@@ -50,6 +50,7 @@ class Main
   end
 
   def create_route
+    raise "Для создания маршрута Вы должны создать мин. 2 станции !" if stations.size < 2
     list_of_stations
     puts "Создание маршрута...\nВедите станцию отправления:"
     start_station = gets.to_i
@@ -62,7 +63,6 @@ class Main
   rescue RuntimeError => w
     puts "Маршрут не создан"
     puts "Ошибка: #{w.message}"
-  retry 
   end
 
   def add_station_to_route
