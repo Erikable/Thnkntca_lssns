@@ -184,6 +184,15 @@ class Main
     hf = Train.find(number)
     puts "Поезд - #{hf.number} | #{hf.type}"
   end
+
+  def choose_carriage_to_fill
+    if @carriages.size >= 1 
+      puts "Выберите порядковый номер нужного вагона"
+      @carriages.each_with_index {|c, i| puts "#{i + 1} - #{c.inspect}"}
+      index_of_carriage = gets.to_i
+      @carriages[index_of_carriage - 1]
+    end
+  end
   
   def start_game
     File.open('commands.txt').each { |c| puts c }
@@ -208,6 +217,7 @@ class Main
         when 14 then del_station_from_route #
         when 15 then find
         when 16 then create_carriage
+        when 17 then choose_carriage_to_fill
         when 0 then exit                                                
         else
           puts "Что-то не так ввел"  
@@ -242,6 +252,7 @@ class Main
     routes[index_of_route - 1]
     end
   end
+
   def choose_station
     @stations.each_with_index {|st, i| puts " #{i + 1} - #{st.title}"}
     index_of_station = gets.to_i
