@@ -5,18 +5,12 @@ class CargoCarriage < Carriage
 
   def initialize(manufacturer, volume)
     super(manufacturer, :cargo)
+    @volume = volume
+    @occupied_volume = 0
   end
 
   def take_a_volume(volume)
-    @volume += 1 if @volume > @occupied_volume
-  end
-
-  def free_volume
-    @volume - @occupied_volume
-  end
-
-  def occupied_volume
-    @volume - free_volume
+    @volume -= volume if @volume >= volume 
   end
   
 end

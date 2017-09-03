@@ -90,10 +90,6 @@ class Main
     end
   end
 
-  def take_seat_or_volume
-    
-  end
-
   def add_station_to_route
     route = choose_route
     puts "Выбери номер станции для добавления в маршрут"
@@ -185,12 +181,17 @@ class Main
     puts "Поезд - #{hf.number} | #{hf.type}"
   end
 
-  def choose_carriage_to_fill
-    if @carriages.size >= 1 
-      puts "Выберите порядковый номер нужного вагона"
-      @carriages.each_with_index {|c, i| puts "#{i + 1} - #{c.inspect}"}
-      index_of_carriage = gets.to_i
-      @carriages[index_of_carriage - 1]
+  def fill_carriage
+    puts "Сейчас будем заполнять наш вагон..."
+    c = choose_carriage_to_fill
+    if c.type == :passenger
+      c.take_a_seat
+      puts "мы заполнили одно место (осталось #{c.free_seats} / занято #{c.occupied_seats})"
+    elsif c.type == :cargo
+      puts "Введите кол-во кубов которые мы заполним:"
+      cubs = gets.to_i
+      c.take_a_volume(cubs)
+      puts "мы заполнили #{cubs} кубов (осталось #{c.volume}/ занято #{c.occupied_volume})"
     end
   end
   
@@ -217,7 +218,7 @@ class Main
         when 14 then del_station_from_route #
         when 15 then find
         when 16 then create_carriage
-        when 17 then choose_carriage_to_fill
+        when 17 then fill_carriage
         when 0 then exit                                                
         else
           puts "Что-то не так ввел"  
@@ -257,6 +258,17 @@ class Main
     @stations.each_with_index {|st, i| puts " #{i + 1} - #{st.title}"}
     index_of_station = gets.to_i
     @st = stations[index_of_station - 1]
+  end
+
+  def choose_carriage_to_fill
+    if @carriages.size >= 1 
+      puts "Выберите порядковый номер нужного вагона"
+      @carriages.each_with_index {|c, i| puts "#{i + 1} - #{c.inspect}"}
+      index_of_carriage = gets.to_i
+      @carriages[index_of_carriage - 1]
+    else 
+      puts "Еще не существует вагонов"
+    end
   end
 
 end
