@@ -191,7 +191,7 @@ class Main
       puts "Введите кол-во кубов которые мы заполним:"
       cubs = gets.to_i
       c.take_a_volume(cubs)
-      puts "мы заполнили #{cubs} кубов (осталось #{c.volume}/ занято #{c.occupied_volume})"
+      puts "мы заполнили #{cubs} кубов (осталось #{c.free_volume}/ занято #{c.occupied_volume})"
     end
   end
   
