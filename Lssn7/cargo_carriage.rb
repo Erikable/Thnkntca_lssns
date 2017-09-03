@@ -11,7 +11,6 @@ class CargoCarriage < Carriage
 
   def take_a_volume(vol)
     @occupied_volume += vol if vol < @volume - @occupied_volume
-    #@volume -= volume if @volume >= volume 
   end
   
   def free_volume

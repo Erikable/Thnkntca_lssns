@@ -194,6 +194,10 @@ class Main
       puts "мы заполнили #{cubs} кубов (осталось #{c.free_volume}/ занято #{c.occupied_volume})"
     end
   end
+
+  def show_trains_on_station
+    
+  end
   
   def start_game
     File.open('commands.txt').each { |c| puts c }

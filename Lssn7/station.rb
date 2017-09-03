@@ -9,6 +9,12 @@ class Station
     @@stations << self 
   end
 
+#написать метод, который принимает блок и проходит по всем поездам на станции, передавая каждый поезд в блок.
+  def each_train_on_station
+    proc_bloc = Proc.new {|train| train}
+
+  end
+
   def valid?
     validate!
     true
