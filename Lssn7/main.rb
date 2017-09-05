@@ -196,7 +196,8 @@ class Main
   end
 
   def show_trains_on_station
-    
+    choose_station 
+    @st.each_train {|train| puts train.number}  
   end
   
   def start_game
@@ -223,6 +224,7 @@ class Main
         when 15 then find
         when 16 then create_carriage
         when 17 then fill_carriage
+        when 18 then show_trains_on_station
         when 0 then exit                                                
         else
           puts "Что-то не так ввел"  
