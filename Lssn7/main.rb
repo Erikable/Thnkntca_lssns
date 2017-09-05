@@ -196,8 +196,13 @@ class Main
   end
 
   def show_trains_on_station
-    choose_station 
-    @st.each_train {|train| puts train.number}  
+    st = choose_station 
+    st.each_train {|train| puts "#{train.number} / #{train.type} / #{train.manufacturer}"}  
+  end
+
+  def show_wagons_on_train
+    train = choose_train
+    train.each_wagon {|wagon| puts "#{wagon.type} / #{wagon.manufacturer}"}
   end
   
   def start_game
@@ -225,6 +230,7 @@ class Main
         when 16 then create_carriage
         when 17 then fill_carriage
         when 18 then show_trains_on_station
+        when 19 then show_wagons_on_train
         when 0 then exit                                                
         else
           puts "Что-то не так ввел"  

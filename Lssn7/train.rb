@@ -19,6 +19,10 @@ class Train
     register_instance
   end
 
+  def each_wagon
+    @carriages.each {|w| yield w}
+  end
+
   def valid?
     validate!
     true
