@@ -85,9 +85,12 @@ class Main
       @carriages.push(carriage)
       puts " #{carriage.inspect} добавлен в базу вагонов"
     else
-      puts "неверно ввели тип !"
-      raise
+      puts " неизвестная ошибка ! попробуй еще раз"
     end
+    rescue RuntimeError => e
+    puts "Вагон не прибавлен!"
+    puts "Ошибка: #{e.message}"
+  retry 
   end
 
   def add_station_to_route
@@ -106,25 +109,35 @@ class Main
   end
 
   def add_carriage_to_train
-    puts "Введите название производителя вагона"
-    manufacturer = gets.chomp
+    carriage = choose_wagon
     train = choose_train
-    puts "Выберите тип вагона:"
-    puts "1 - Пассажирский     2 - Грузовой"
-    type = gets.to_i
-    if type == 1
-      carriage = PassengerCarriage.new(manufacturer)
-      train.add_carriage(carriage)
-    elsif type == 2
-      carriage = CargoCarriage.new(manufacturer)
-      train.add_carriage(carriage)
-      puts train.carriages
-    else puts "Ошибка (ввели не существующую команду)"
-    end
-  rescue RuntimeError => e
-    puts "Вагон не прибавлен!"
-    puts "Ошибка: #{e.message}"
-  retry 
+    train.add_carriage(carriage)
+    #if train.type == carriage.type 
+    #  train.push(carriage)
+    #elsif 
+    #  puts "Разные типы у вагона и поезда! "
+    #end
+    #________    
+    #puts "Введите название производителя вагона"
+    #manufacturer = gets.chomp
+    
+    #train = choose_train
+    #puts "Выберите тип вагона:"
+    #puts "1 - Пассажирский     2 - Грузовой"
+    #type = gets.to_i
+    #if type == 1
+    #  carriage = PassengerCarriage.new(manufacturer)
+    #  train.add_carriage(carriage)
+    #elsif type == 2
+    #  carriage = CargoCarriage.new(manufacturer)
+    #  train.add_carriage(carriage)
+    #  puts train.carriages
+    #else puts "Ошибка (ввели не существующую команду)"
+    #end
+  #rescue RuntimeError => e
+  #  puts "Вагон не прибавлен!"
+  #  puts "Ошибка: #{e.message}"
+  #retry 
   end
 
   def del_carriage_from_train
@@ -202,7 +215,7 @@ class Main
 
   def show_wagons_on_train
     train = choose_train
-    train.each_wagon {|wagon| puts "#{wagon.type} / #{wagon.manufacturer}"}
+    train.each_wagon {|wagon| puts "Тип - #{wagon.type} / Производитель - #{wagon.manufacturer}"}
   end
   
   def start_game
@@ -246,6 +259,13 @@ class Main
     @trains.each_with_index {|train, index| puts " #{index + 1} - #{train.number} (#{train.type})"}
     index_of_train = gets.to_i
     @trains[index_of_train - 1] 
+  end
+
+  def choose_wagon
+    puts "Выберите номер вагона"
+    @carriages.each_with_index {|carriage, index| puts "Вагон - #{carriage}   номер - #{index + 1}"}
+    carriage_num = gets.to_i
+    @carriages[carriage_num - 1]
   end
 
   def choose_carriage(train)
