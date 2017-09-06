@@ -20,7 +20,7 @@ class Train
   end
 
   def each_wagon
-    @carriages.each {|w| yield w}
+    @carriages.each {|wagon| yield wagon}
   end
 
   def valid?

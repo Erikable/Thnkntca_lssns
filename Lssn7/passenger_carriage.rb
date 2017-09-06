@@ -16,9 +16,4 @@ class PassengerCarriage < Carriage
   def free_seats
     @seats - @occupied_seats
   end
-
-  def occupied_seats
-  @seats - free_seats
-  end
-
 end

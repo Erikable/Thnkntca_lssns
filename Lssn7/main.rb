@@ -209,13 +209,13 @@ class Main
   end
 
   def show_trains_on_station
-    st = choose_station 
-    st.each_train {|train| puts "#{train.number} / #{train.type} / #{train.manufacturer}"}  
+    #st = choose_station 
+    choose_station.each_train {|train| puts "Поезд - #{train.number} / #{train.type} / #{train.manufacturer}"}  
   end
 
   def show_wagons_on_train
-    train = choose_train
-    train.each_wagon {|wagon| puts "Тип - #{wagon.type} / Производитель - #{wagon.manufacturer}"}
+    #train = choose_train
+    choose_train.each_wagon {|wagon| puts "Тип - #{wagon.type} / Производитель - #{wagon.manufacturer}"}
   end
   
   def start_game
