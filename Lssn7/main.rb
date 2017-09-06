@@ -112,32 +112,6 @@ class Main
     carriage = choose_wagon
     train = choose_train
     train.add_carriage(carriage)
-    #if train.type == carriage.type 
-    #  train.push(carriage)
-    #elsif 
-    #  puts "Разные типы у вагона и поезда! "
-    #end
-    #________    
-    #puts "Введите название производителя вагона"
-    #manufacturer = gets.chomp
-    
-    #train = choose_train
-    #puts "Выберите тип вагона:"
-    #puts "1 - Пассажирский     2 - Грузовой"
-    #type = gets.to_i
-    #if type == 1
-    #  carriage = PassengerCarriage.new(manufacturer)
-    #  train.add_carriage(carriage)
-    #elsif type == 2
-    #  carriage = CargoCarriage.new(manufacturer)
-    #  train.add_carriage(carriage)
-    #  puts train.carriages
-    #else puts "Ошибка (ввели не существующую команду)"
-    #end
-  #rescue RuntimeError => e
-  #  puts "Вагон не прибавлен!"
-  #  puts "Ошибка: #{e.message}"
-  #retry 
   end
 
   def del_carriage_from_train
@@ -302,12 +276,4 @@ class Main
       puts "Еще не существует вагонов"
     end
   end
-
 end
-
-
-
-
-
-
-

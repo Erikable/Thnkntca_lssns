@@ -1,5 +1,4 @@
 class PassengerCarriage < Carriage 
-  
   attr_accessor :seats
   attr_reader :occupied_seats
 

@@ -120,9 +120,3 @@ protected
     raise "Не ввели название производителя для поезда!" if manufacturer !~ TRAIN_FORMAT
   end
 end
-
-
-
-
-
-

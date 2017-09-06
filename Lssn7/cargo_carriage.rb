@@ -1,5 +1,4 @@
 class CargoCarriage < Carriage
-
   attr_accessor :volume 
   attr_reader :occupied_volume
 

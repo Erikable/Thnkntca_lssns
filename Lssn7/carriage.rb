@@ -1,6 +1,5 @@
 class Carriage
   include Manufacturer
-
   attr_reader :type
   WAGON_FORMAT = /^[a-zA-Z0-9]+$/
   def initialize (manufacturer, type)
