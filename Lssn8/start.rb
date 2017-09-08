@@ -1,3 +1,3 @@
-require_relative "main.rb"
+require_relative 'main.rb'
 a = Main.new
 a.start_game

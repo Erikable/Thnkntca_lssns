@@ -20,7 +20,7 @@ class Train
   end
 
   def each_wagon
-    @carriages.each {|wagon| yield wagon}
+    @carriages.each { |wagon| yield wagon }
   end
 
   def valid?
@@ -43,44 +43,43 @@ class Train
   end
 
   def add_carriage(carriage)
-    if @speed == 0 
-      if carriage.type == self.type
+    if @speed == 0
+      if carriage.type == type
         @carriages.push(carriage)
-      puts "Вагон(#{carriage.type}) прибавлен (всего вагонов прицеплено - #{@carriages.size} )"
-      else 
+        puts "Вагон(#{carriage.type}) прибавлен (всего вагонов прицеплено - #{@carriages.size} )"
+      else
         puts "Не верный тип вагона = (#{carriage.type})"
       end
     else
-      puts "Останови поезд, а только потом пристегивай вагон!"
+      puts 'Останови поезд, а только потом пристегивай вагон!'
     end
   end
 
   def del_carriage(carriage)
     if @carriages.size.zero?
-      puts "Вагонов на отцепку нет"
+      puts 'Вагонов на отцепку нет'
     elsif @speed.zero?
-      @carriages.delete(carriage) 
+      @carriages.delete(carriage)
       puts "Вагон (#{carriage}) отцеплен (всего вагонов прицеплено - #{@carriages.size} )"
     else
-      "Останови поезд и отстегни вагон!"
+      'Останови поезд и отстегни вагон!'
     end
   end
-  
+
   def set_route(route)
     @marshrut = route
     current_station.take_train(self)
   end
 
   def current_station
-    @current_station = @marshrut.route[@index] 
-
+    @current_station = @marshrut.route[@index]
   end
 
   def go_to_next_station
     if current_station == @marshrut.route.last
-      puts "Поезд уже на последней станции!!!(не может двигаться вперед)"
+      puts 'Поезд уже на последней станции!!!(не может двигаться вперед)'
     else
-      current_station.send_train(self) 
+      current_station.send_train(self)
       @index += 1
       current_station.take_train(self)
       puts "Поезд прибыл на следующую станцию #{current_station.title}"
@@ -88,8 +87,8 @@ class Train
   end
 
   def go_to_last_station
-    if current_station == @marshrut.route.first #@index == 0
-      puts "Поезд на первой станции!!!(не может двигаться назад)"
+    if current_station == @marshrut.route.first # @index == 0
+      puts 'Поезд на первой станции!!!(не может двигаться назад)'
     else
       current_station.send_train(self)
       @index -= 1
@@ -98,14 +97,14 @@ class Train
     end
   end
 
-protected 
+  protected
 
   attr_reader :index, :station, :route
 
   def last_station
     if @index.pred < 0
       @marshrut.route.first
-    else 
+    else
       @last_station = @marshrut.route[@index.pred]
     end
   end
@@ -115,8 +114,8 @@ protected
   end
 
   def validate!
-    raise "Название поезда должно содержать не менее 5 знаков в формате ХХХ-ХХ" if number.to_s.length < 5 
-    raise "Номер позда не верного формата (верный формат ХХХ-ХХ) " if number !~ NUMBER_FORMAT
-    raise "Не ввели название производителя для поезда!" if manufacturer !~ TRAIN_FORMAT
+    raise 'Название поезда должно содержать не менее 5 знаков в формате ХХХ-ХХ' if number.to_s.length < 5
+    raise 'Номер позда не верного формата (верный формат ХХХ-ХХ) ' if number !~ NUMBER_FORMAT
+    raise 'Не ввели название производителя для поезда!' if manufacturer !~ TRAIN_FORMAT
   end
 end

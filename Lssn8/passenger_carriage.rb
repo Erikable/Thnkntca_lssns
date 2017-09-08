@@ -1,9 +1,9 @@
-class PassengerCarriage < Carriage 
+class PassengerCarriage < Carriage
   attr_accessor :seats
   attr_reader :occupied_seats
 
   def initialize(manufacturer, seats)
-    super(manufacturer, :passenger) 
+    super(manufacturer, :passenger)
     @seats = seats
     @occupied_seats = 0
   end
