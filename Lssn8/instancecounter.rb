@@ -5,7 +5,7 @@ module InstanceCounter
   end
 
   module ClassMethods
-    attr_reader :instances # возвращает кол-во экземпляров данного класса
+    attr_reader :instances # return amount of instances of this class
 
     protected
 
@@ -19,7 +19,7 @@ module InstanceCounter
     protected
 
     attr_writer :instances
-    def register_instance # увеличивает счетчик кол-ва экземпляров класса и который можно вызвать из конструктора. При этом данный метод не должен быть публичным.
+    def register_instance # Increases the count of the number of instances of the class
       self.class.send :increase_instances
     end
   end

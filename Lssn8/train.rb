@@ -43,10 +43,11 @@ class Train
   end
 
   def add_carriage(carriage)
-    if @speed == 0
+    if @speed.zero?
       if carriage.type == type
         @carriages.push(carriage)
-        puts "Вагон(#{carriage.type}) прибавлен (всего вагонов прицеплено - #{@carriages.size} )"
+        puts "Вагон(#{carriage.type}) прибавлен 
+              (всего вагонов прицеплено - #{@carriages.size} )"
       else
         puts "Не верный тип вагона = (#{carriage.type})"
       end
@@ -60,7 +61,8 @@ class Train
       puts 'Вагонов на отцепку нет'
     elsif @speed.zero?
       @carriages.delete(carriage)
-      puts "Вагон (#{carriage}) отцеплен (всего вагонов прицеплено - #{@carriages.size} )"
+      puts "Вагон (#{carriage}) отцеплен 
+            (всего вагонов прицеплено - #{@carriages.size} )"
     else
       'Останови поезд и отстегни вагон!'
     end
@@ -114,8 +116,11 @@ class Train
   end
 
   def validate!
-    raise 'Название поезда должно содержать не менее 5 знаков в формате ХХХ-ХХ' if number.to_s.length < 5
-    raise 'Номер позда не верного формата (верный формат ХХХ-ХХ) ' if number !~ NUMBER_FORMAT
-    raise 'Не ввели название производителя для поезда!' if manufacturer !~ TRAIN_FORMAT
+    raise 'Название поезда должно содержать не менее 5 знаков в формате ХХХ-ХХ'
+      if number.to_s.length < 5
+    raise 'Номер позда не верного формата (верный формат ХХХ-ХХ) ' 
+      if number !~ NUMBER_FORMAT
+    raise 'Не ввели название производителя для поезда!' 
+      if manufacturer !~ TRAIN_FORMAT
   end
 end

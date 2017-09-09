@@ -22,6 +22,6 @@ class Carriage
     raise 'Название производителя не может быть nil' if manufacturer.nil?
     raise 'Тип вагона не может быть пустым' if type == ''
     raise 'Тип вагона не может быть nil' if type.nil?
-    raise 'Вы не ввели название производителя для вагона!' if manufacturer !~ WAGON_FORMAT
+    raise 'Не ввели производителя для вагона!' if manufacturer !~ WAGON_FORMAT
   end
 end
