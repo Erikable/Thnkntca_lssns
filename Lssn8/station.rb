@@ -1,15 +1,24 @@
+# frozen_string_literal: true
+
 class Station
   attr_reader :title, :trains
   ES = /^\s*$/
-  @@stations = []
+  @stations = []
   def initialize(title)
     @title = title
     validate!
     @trains = []
-    @@stations << self
+    self.class.stations << self
   end
 
-  # написать метод, который принимает блок и проходит по всем поездам на станции, передавая каждый поезд в блок.
+  class << self
+    attr_reader :stations
+
+    def all
+      self.class.stations
+    end
+  end
+
   def each_train
     @trains.each { |train| yield train }
   end
@@ -19,10 +28,6 @@ class Station
     true
   rescue
     false
-  end
-
-  def self.all
-    @@stations
   end
 
   def take_train(train)
@@ -38,9 +43,9 @@ class Station
     @trains.each_with_index { |t, i| puts "#{i + 1} - #{t.number}/#{t.type}" }
   end
 
-  def get_train_list
-    @trains.each { |t| puts t }
-  end
+  # def get_train_list
+  #   @trains.each { |t| puts t }
+  # end
 
   def trains_by_type(tr_type)
     arr = @trains.find_all { |t| t.type == tr_type }

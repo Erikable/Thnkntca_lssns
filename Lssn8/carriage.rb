@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Carriage
   include Manufacturer
   attr_reader :type
@@ -18,8 +20,6 @@ class Carriage
   protected
 
   def validate!
-    raise 'Название производителя не может быть пустым' if manufacturer == ''
-    raise 'Название производителя не может быть nil' if manufacturer.nil?
     raise 'Тип вагона не может быть пустым' if type == ''
     raise 'Тип вагона не может быть nil' if type.nil?
     raise 'Не ввели производителя для вагона!' if manufacturer !~ WAGON_FORMAT

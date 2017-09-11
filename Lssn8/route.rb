@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Route
   attr_accessor :stations, :route
   def initialize(start_station, end_station)
@@ -17,7 +19,7 @@ class Route
     end
   end
 
-  def get_station_list
+  def took_station_list
     @route.each { |e| puts e }
   end
 
@@ -31,8 +33,8 @@ class Route
   private
 
   def validate!
-    raise 'Начальная и конечная станции не могут быть одинаковы' if route.first == route.last
-    raise 'Первая станция не является станцией! (номер станции не соответствует существующему)' unless route.first.is_a? Station
-    raise 'Вторая станция не является станцией! (номер станции не соответствует существующему)' unless route.last.is_a? Station
+    raise puts 'Начальная и конечная станции не могут быть одинаковы' if route.first == route.last
+    raise puts 'Первая станция не является станцией!(номер станции не соответствует существующему)' unless route.first.is_a? Station
+    raise puts 'Вторая станция не является станцией!(номер станции не соответствует существующему)' unless route.last.is_a? Station
   end
 end

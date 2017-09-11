@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module InstanceCounter
   def self.included(base)
     base.extend ClassMethods
@@ -19,7 +21,7 @@ module InstanceCounter
     protected
 
     attr_writer :instances
-    def register_instance # Increases the count of the number of instances of the class
+    def register_instance # Increases the count of the number
       self.class.send :increase_instances
     end
   end
