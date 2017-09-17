@@ -11,7 +11,7 @@ module Acessors
         define_method("#{attr}=".to_sym) do |value|
           instance_variable_set(var_name, value)
           @var_values ||= {}
-          #@var_values[attr] = []
+          @var_values[attr] ||= []
           @var_values[attr] << value
         end
 

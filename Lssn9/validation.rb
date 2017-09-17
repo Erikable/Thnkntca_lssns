@@ -1,5 +1,5 @@
-
 module Validation
+
 
   def self.included(base)
     base.extend ClassMethods
@@ -24,20 +24,21 @@ module Validation
     def validate!
       self.class.validations.each do |validation|
         attr = instance_variable_get("@#{validation[:name]}")
-        send validation[:type]#, validation[:name], validation[:args]
+        send(validation[:type], attr, *validation[:args]) 
       end
     end
 
-    def presence(name, attr)
-      raise "#{name} значение атрибута не может быть nil и пустой строкой !" if attr.empty? || attr.nil?
+    def presence(attr)
+      raise "значение атрибута не может быть nil и пустой строкой !" if attr.nil? || attr.empty?
     end
 
-    def type(name, attr, attr_class)
-      raise "#{name} не соответствует классу" unless attr.is_a? attr_classp
+    def type(attr, attr_class)
+      puts attr_class
+      raise "не соответствует классу" unless attr.is_a? attr_class
     end
 
-    def format(name, attr, format)
-      raise "#{name} не соответствует формату" if attr !~ format
+    def format(attr, format)
+      raise "не соответствует формату" if attr !~ format
     end
 
   end
