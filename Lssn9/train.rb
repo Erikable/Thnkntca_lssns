@@ -1,6 +1,11 @@
+require_relative 'validation'
+
+
 class Train
+  include Acessors
   include Manufacturer
   include InstanceCounter
+  include Validation
   attr_reader :type, :number, :current_station, :speed, :wagons, :carriages
 
   @@trains = {}
@@ -10,24 +15,17 @@ class Train
   def initialize(number, manufacturer)
     @number = number
     @manufacturer = manufacturer
-    validate!
     @wagons_quantity = 0
     @speed = 0
     @index = 0
     @carriages = []
     @@trains[number] = self
     register_instance
+    validate!
   end
 
   def each_wagon
     @carriages.each { |wagon| yield wagon }
-  end
-
-  def valid?
-    validate!
-    true
-  rescue
-    false
   end
 
   def self.find(number)
@@ -113,9 +111,9 @@ class Train
     @marshrut.route[@index.next]
   end
 
-  def validate!
-    raise 'Неверный формат! (формате ХХХ-ХХ)' if number.to_s.length < 5
-    raise 'Неверный формат N поезда! (формат ХХХ-ХХ)' if number !~ NUMBER_FORMAT
-    raise 'Не ввели производителя для поезда!' if manufacturer !~ TRAIN_FORMAT
-  end
+  #def validate!
+  #  raise 'Неверный формат! (формате ХХХ-ХХ)' if number.to_s.length < 5
+  #  raise 'Неверный формат N поезда! (формат ХХХ-ХХ)' if number !~ NUMBER_FORMAT
+  #  raise 'Не ввели производителя для поезда!' if manufacturer !~ TRAIN_FORMAT
+  #end
 end

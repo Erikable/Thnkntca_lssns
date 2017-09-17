@@ -11,6 +11,8 @@ require_relative 'carriage.rb'
 require_relative 'cargo_carriage'
 require_relative 'passenger_carriage'
 require_relative 'partofmain'
+require_relative 'validation'
+
 
 class Main
   include PartOfMain

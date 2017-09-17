@@ -1,9 +1,14 @@
 # frozen_string_literal: true
+require_relative 'validation'
 
 class Station
+  include Validation
+
   attr_reader :title, :trains
   ES = /^\s*$/
   @stations = []
+  validate :title, :presence
+
   def initialize(title)
     @title = title
     validate!
@@ -21,13 +26,6 @@ class Station
 
   def each_train
     @trains.each { |train| yield train }
-  end
-
-  def valid?
-    validate!
-    true
-  rescue
-    false
   end
 
   def take_train(train)
@@ -54,8 +52,8 @@ class Station
 
   private
 
-  def validate!
-    raise 'Название не может быть из пробелов или пустым !' unless title !~ ES
-    raise 'Должно быть не менее 2 знаков' if title.to_s.length < 2
-  end
+  #def validate!
+  #  raise 'Название не может быть из пробелов или пустым !' unless title !~ ES
+  #  raise 'Должно быть не менее 2 знаков' if title.to_s.length < 2
+  #end
 end

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Route
+  include Validation
+
   attr_accessor :stations, :route
   def initialize(start_station, end_station)
     @route = [start_station, end_station]
@@ -21,13 +23,6 @@ class Route
 
   def took_station_list
     @route.each { |e| puts e }
-  end
-
-  def valid?
-    validate!
-    true
-  rescue
-    false
   end
 
   private

@@ -1,26 +1,31 @@
 module Acessors
+  def self.included(base)
+    base.extend ClassMethods
+  end
 
-  def self.attr_accessor_with_history(*attributes)
-    attributes.each do |attribute|
-      var_attribute = "@#{attribute}".to_sym
-      define_method(attribute) { instance_variable_get(var_attribute) }
-      define_method("#{attribute}=".to_sym) do |value| 
-        instance_variable_set(var_attribute, value) 
-      @history ||= {}
-      @history[attribute] ||= []
-      @history[attribute] << value #{speed =>[60]}
+  module ClassMethods
+    def attr_accessor_with_history(*attrs)
+      attrs.each do |attr|
+        var_name = "@#{attr}".to_sym
+        define_method(attr) { instance_variable_get(var_name) }
+        define_method("#{attr}=".to_sym) do |value|
+          instance_variable_set(var_name, value)
+          @var_values ||= {}
+          @var_values[attr] = []
+          @var_values[attr] << value
+        end
+
+        define_method("#{attr}_history") { @var_values[attr] }
+      end
     end
-      define_method("#{attribute}_history") {@history[attribute]}
+
+    def strong_attr_acessor(attr_name, class_type)
+      var_name = "@#{attr_name}".to_sym
+      define_method(attr_name.to_sym) { instance_variable_get(var_name) }
+      define_method("#{name}=") do |value|
+        raise 'Ошибка!' unless value.class.is_a?(class_type) #value.is_a?(class_type)
+        instance_variable_set(var_name, value)
+      end
     end
   end
-
-  def self.strong_attr_acessor(name, type)
-    var_name = "@#{name}".to_sym
-    define_method(name) { instance_variable_get(var_name) }
-    define_method("#{name}=".to_sym) do |x|
-    raise TypeError, "Ошибка" unless x.class.is_a?(type)
-    instance_variable_set(var_name, x)
-  end
-  end
-
 end
