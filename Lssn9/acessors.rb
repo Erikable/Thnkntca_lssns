@@ -11,7 +11,7 @@ module Acessors
         define_method("#{attr}=".to_sym) do |value|
           instance_variable_set(var_name, value)
           @var_values ||= {}
-          @var_values[attr] = []
+          #@var_values[attr] = []
           @var_values[attr] << value
         end
 
@@ -23,7 +23,7 @@ module Acessors
       var_name = "@#{attr_name}".to_sym
       define_method(attr_name.to_sym) { instance_variable_get(var_name) }
       define_method("#{name}=") do |value|
-        raise 'Ошибка!' unless value.class.is_a?(class_type) #value.is_a?(class_type)
+        raise 'Ошибка!' unless value.is_a?(class_type)
         instance_variable_set(var_name, value)
       end
     end
