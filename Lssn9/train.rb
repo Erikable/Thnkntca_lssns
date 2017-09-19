@@ -1,15 +1,14 @@
 require_relative 'validation'
-
+require_relative 'manufacturer'
 
 class Train
-  include Acessors
   include Manufacturer
   include InstanceCounter
   include Validation
   attr_reader :type, :number, :current_station, :speed, :wagons, :carriages
 
   @@trains = {}
-  NUMBER_FORMAT = /^[0-9a-z]{3}-?[0-9a-z]{2}$/i
+  NUMBER_FORMAT = /A-Z{0,3}/ #  /^[0-9a-z]{3}-?[0-9a-z]{2}$/i
   TRAIN_FORMAT = /^[a-zA-Z0-9]+$/
 
   def initialize(number, manufacturer)
@@ -21,8 +20,10 @@ class Train
     @carriages = []
     @@trains[number] = self
     register_instance
-    validate!
+    #validate!
   end
+
+  validate :number, :format, /^[0-9a-z]{3}-?[0-9a-z]{2}$/i #/A-Z{0,3}/
 
   def each_wagon
     @carriages.each { |wagon| yield wagon }

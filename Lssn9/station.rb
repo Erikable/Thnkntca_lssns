@@ -5,14 +5,17 @@ class Station
   include Validation
 
   attr_reader :title, :trains
-  ES = /^\s*$/
+  #ES = /^\s*$/
   @stations = []
-  validate :title, :presence
 
+  validate :title, :presence
+  validate :title, :type, String
+
+  
   def initialize(title)
     @title = title
-    validate!
     @trains = []
+    validate!
     self.class.stations << self
   end
 

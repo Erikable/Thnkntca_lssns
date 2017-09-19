@@ -39,7 +39,7 @@ module Validation
 
     def format(attr, format)
       raise "не соответствует формату" if attr !~ format
-    end
+    end 
 
   end
 
